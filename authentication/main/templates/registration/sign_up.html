@@ -1,0 +1,97 @@
+{% extends 'main/base.html'%} {%block title%}Login{%endblock%} {%block styling%}
+<style>
+  .container {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .card {
+    width: 400px;
+    height: 550px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  h2 {
+    color: #000000;
+    margin-bottom: 20px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    text-align: left;
+    margin-bottom: 5px;
+  }
+
+  input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  button {
+    padding: 10px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .switch {
+    margin-top: 15px;
+    font-size: 20px;
+  }
+
+  .switch a {
+    color: #007bff;
+    text-decoration: none;
+  }
+</style>
+{%endblock%} {%block content%}
+
+<div class="container">
+  <div class="card">
+    <h2>Register Yourself</h2>
+    <form method="POST" action="sign_up">
+      {%csrf_token%}
+      <label for="username" >Username</label>
+      <input name="username" type="text" id="username" placeholder="Enter your username" />
+
+      <label for="firstname">First Name</label>
+      <input name="first_name" type="text" id="email" placeholder="Enter your first name" />
+      
+      <label for="lastname">Last Name</label>
+      <input name="last_name" type="text" id="email" placeholder="Enter your last name" />
+      
+
+      <label for="email">Email</label>
+      <input name="email" type="email" id="email" placeholder="Enter your email" />
+
+      <label for="new-password">New Password</label>
+      <input
+      name="password"
+        type="password"
+        id="password"
+        placeholder="Enter your new password"
+      />
+
+      <button type="submit">Register</button>
+    </form>
+    <div class="switch">
+      Already have an account? <a href="/login">Login here</a>
+    </div>
+  </div>
+</div>
+{%endblock%}

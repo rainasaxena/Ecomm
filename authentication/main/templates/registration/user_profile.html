@@ -1,0 +1,101 @@
+{% extends 'main/base.html'%} {%block title%}Login{%endblock%} {%block styling%}
+<style>
+  .container {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .card {
+    width: 400px;
+    height: 675px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  h2 {
+    color: #000000;
+    margin-bottom: 20px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    text-align: left;
+    margin-bottom: 5px;
+  }
+
+  input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  button {
+    padding: 10px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .switch {
+    margin-top: 15px;
+    font-size: 20px;
+  }
+
+  .switch a {
+    color: #007bff;
+    text-decoration: none;
+  }
+</style>
+{%endblock%} {%block content%}
+
+<div class="container">
+  <div class="card">
+    <h2>Enter your details</h2>
+    <form method="POST" action="/update_user_profile">
+      {%csrf_token%}
+    
+      <label for="username" >Username</label>
+      <input name="username" type="text" id="username" value={{username}} readonly/>
+
+      <label for="firstname">First Name</label>
+      <input name="first_name" type="text" id="first_name" value={{first_name}} />
+      
+      <label for="lastname">Last Name</label>
+      <input name="last_name" type="text" id="last_name" value={{last_name}} />
+      
+
+      <label for="email">Email</label>
+      <input name="userEmail" type="email" id="email" value="{{email}}" readonly/>
+
+      <label for="user_pfp">Profile Picture</label>
+      <input name="user_pfp" type="file" id="user_pfp" placeholder="Enter your username" />
+
+      <label for="user_addr">Address</label>
+      <input name="user_addr" type="text" id="user_addr" placeholder="Enter your address" />
+      
+      <label for="user_gender">Gender</label>
+      <!-- <input name="user_gender" type="text" id="user_addr" placeholder="Enter your gender" /> -->
+      <select name="user_gender" id="user_gender">
+        <option selected disabled>Choose Gender</option>
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+      </select>
+      
+        <button type="submit">Save Information</button>
+    </form>
+  </div>
+</div>
+{%endblock%}
