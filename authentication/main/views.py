@@ -99,23 +99,17 @@ def update_user_profile(request):
         # else:
         #updating remaning details 
         profile_details = userProfile(user=user, user_addr=user_addr, user_gender=user_gender, user_pfp=user_pfp)
-        print("deatils being saved")
         profile_details.save()
-        print("deatils saved")
             
         try:
-            print(f'main/images/user_pfp/{user_pfp}')
             with open(f'main/images/user_pfp/{user_pfp}', 'rb') as img:
                 storage_client.from_('Images').upload(file=img, path=f'user_pfp/{user_pfp}')
-            print("Hello1")
             image_public_url = storage_client.from_('Images').get_public_url(f'user_pfp/pfp.jpg')
             profile_details.user_pfp = image_public_url
-            print("Hello2")
 
             serialize_user_profile_data = UserProfileDetailsSerializer(profile_details).data
             
-            profile_details.save()   
-            print("details saved")
+            profile_details.save()
         except:
             return Response({'message': 'Something went wrong please try again later :('}, status=status.HTTP_404_NOT_FOUND)
         
@@ -129,7 +123,7 @@ def get_categories(request):
     category_objects=Category.objects.all()
     serializer_category_objects=CategorySerializer(category_objects, many=True)
     print(serializer_category_objects.data)
-    return Response({'message':'sab badhiya', 'category_objects':serializer_category_objects.data}, status=status.HTTP_200_OK)
+    return Response({'message':'Categories Featched', 'category_objects':serializer_category_objects.data}, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -148,20 +142,14 @@ def create_categories(request):
 
         try:
             category = Category.objects.get(cat_id=cat_id)
-            print('start...')
             with open(f'main/images/cat_image/{cat_image}', 'rb') as img:
-                print('start-1')
                 storage_client.from_('Images').upload(file=img, path=f'cat_image/{cat_image}')
-                print('start-2')
 
             image_public_url = storage_client.from_('Images').get_public_url(f'cat_image/{cat_image}')
             category.cat_image = image_public_url
-            print(image_public_url)
 
             serializer_category_objects=CategorySerializer(category)
-            print(serializer_category_objects.data)
             category.save()
-            print(image_public_url)
             # serialize_user_profile_data = UserProfileDetailsSerializer(profile_details).data
 
         except Exception as e:
@@ -170,7 +158,7 @@ def create_categories(request):
     except:
         return Response({'message':'Category not created!'})
     
-    return Response({'message':'ban gyi category', 'category':serializer_category_objects.data}, status=status.HTTP_200_OK)
+    return Response({'message':'Category Created Sucessfully', 'category':serializer_category_objects.data}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def create_product(request):
@@ -191,7 +179,6 @@ def create_product(request):
         serialized_product =  ProductSerializer(new_product)
         try:
             if ProductSerializer(data=serialized_product.data).is_valid():
-                print('Saving product')
                 new_product.save()
         except Exception as e:
             return Response({'message': f'Product Not saved someting went wrong :(: {e}' }, status=status.HTTP_204_NO_CONTENT)
