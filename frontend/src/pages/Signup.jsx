@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { fetchData, registerUser } from "../utils/authUtils";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
+
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -31,7 +33,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="text-sm md:text-lg flex justify-center items-center h-[100vh]">
+    <div className="text-sm md:text-base flex justify-center items-center h-[100vh]">
       <div className="w-72 md:w-96 h-50 md:h-90 p-5 rounded-xl bg-white shadow-2xl text-center ">
         <h2 className="text-black mb-5 font-bold">Register Yourself</h2>
 
@@ -111,12 +113,7 @@ const Signup = () => {
             }}
           />
 
-          <button
-            className="p-2 bg-blue-700 hover:bg-blue-800 text-[#fff] border-none rounded-[5px] cursor-pointer "
-            type="submit"
-          >
-            Register
-          </button>
+          <Button buttonText="Signup" onClickFunction={()=>{navigate('/update-profile/:username')}}></Button>
         </form>
       </div>
     </div>

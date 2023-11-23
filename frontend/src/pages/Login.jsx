@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchData, getUserDetails } from "../utils/authUtils";
 import { Link, useNavigate } from "react-router-dom";
+import Button from "../components/Button";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -28,10 +29,9 @@ const Login = () => {
   }, [authTokens, userData]);
 
   return (
-    <div className="text-sm md:text-lg flex justify-center items-center h-[100vh] font-poppins">
+    <div className="text-sm md:text-base flex justify-center items-center font-poppins h-[100vh]">
       <div className="w-50 md:w-96 h-50 md:h-90 p-5 rounded-xl bg-white shadow-2xl text-center ">
         <h2 className="text-black mb-5 font-bold">Login to your account</h2>
-
         <form className="flex flex-col" onSubmit={handleSubmit}>
           <label className="text-left mb-1 mt-2" for="username">
             Username
@@ -59,12 +59,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button
-            className="p-2 bg-blue-700 hover:bg-blue-800 text-[#fff] border-none rounded-[5px] cursor-pointer "
-            type="submit"
-          >
-            Login
-          </button>
+          <Button buttonText="Login" onClickFunction={()=>{navigate('/')}}></Button>
           <div className="mt-3">
             Don't have an account?{" "}
             <a href="#">

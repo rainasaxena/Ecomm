@@ -1,8 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { fetchData, updateUserProfile } from "../utils/authUtils";
+import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
 const UpdateUserProfile = () => {
+  const navigate = useNavigate();
+
   const [authTokens, setAuthTokens] = useState([]);
   const [userData, setUserData] = useState([]);
 
@@ -52,7 +56,7 @@ const UpdateUserProfile = () => {
   };
 
   return (
-    <div className="text-sm md:text-lg flex justify-center items-center h-[100vh]">
+    <div className="text-sm md:text-base flex justify-center items-center h-[100vh]">
       <div className="w-72 md:w-96 h-50 md:h-90 p-5 rounded-xl bg-white shadow-xl text-center ">
         <h2 className="text-black mb-5 font-bold">Enter your details</h2>
 
@@ -143,12 +147,7 @@ const UpdateUserProfile = () => {
             <option value="F">Female</option>
           </select>
 
-          <button
-            className="p-2 bg-blue-700 hover:bg-blue-800 text-[#fff] border-none rounded-lg cursor-pointer "
-            type="submit"
-          >
-            Save Information
-          </button>
+          <Button buttonText="Update Profile" onClickFunction={()=>{navigate('/')}}></Button>
         </form>
       </div>
     </div>
