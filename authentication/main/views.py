@@ -10,7 +10,7 @@ from storage3 import create_client
 import datetime
 
 from .forms import RegisterForm
-from .serializers import UserSerializer, UserProfileDetailsSerializer, CategorySerializer, ProductSerializer
+from .serializers import UserSerializer, UserProfileDetailsSerializer, CategorySerializer, ProductSerializer, GetProductSerializer
 from .models import userProfile, Category, Product
 
 url = 'https://cdztpolwphkawmvkmrei.supabase.co/storage/v1'
@@ -129,13 +129,13 @@ def get_categories(request):
 @api_view(['POST'])
 def create_categories(request):
     cat_title = request.POST.get('cat_title', '')
-    cat_image = request.FILES.get('cat_image')
+    cat_image = request.FILES.get('cat_image_file')
 
     if not cat_title or not cat_image:
         return Response({'message':'Please fill in all the required fields.'})
     
     try:
-        category=Category(cat_title=cat_title, cat_image=cat_image)
+        category=Category(cat_title=cat_title, cat_image_file=cat_image)
         print('Cat object Created')
         cat_id = category.cat_id
         category.save()
@@ -146,7 +146,7 @@ def create_categories(request):
                 storage_client.from_('Images').upload(file=img, path=f'cat_image/{cat_image}')
 
             image_public_url = storage_client.from_('Images').get_public_url(f'cat_image/{cat_image}')
-            category.cat_image = image_public_url
+            category.cat_image_url = image_public_url
 
             serializer_category_objects=CategorySerializer(category)
             category.save()
@@ -162,28 +162,60 @@ def create_categories(request):
 
 @api_view(['POST'])
 def create_product(request):
-    # user_id = 
-    # category_id prod_title prod_image prod_desc prod_price prod_old_price 
-    # prod_specs prod_instock prod_date_added prod_date_updated
     posted_data = request.data
     
     # check for category
     try:
-        print(posted_data['category_id'])
         category = Category.objects.get(cat_id=posted_data['category_id'])
     except Exception as e:
         return Response({'message': 'Category does not exist'}, status=status.HTTP_204_NO_CONTENT)
     
     try:
-        new_product = Product(category=category, prod_title=posted_data['prod_title'], prod_desc=posted_data['prod_desc'], prod_image=request.FILES.get('prod_image'), prod_price=int(posted_data['prod_price']), prod_old_price=int(posted_data['prod_old_price']), prod_specs=posted_data['prod_specs']) #, prod_instock=bool(posted_data['prod_instock']), prod_date_added=datetime.datetime.strptime(posted_data['prod_date_added'], '%d/%m/%Y').date(), prod_date_updated=datetime.datetime.strptime(posted_data['prod_date_updated'], '%d/%m/%Y').date())
+        new_product = Product(category=category, prod_title=posted_data['prod_title'], prod_desc=posted_data['prod_desc'], prod_image_file=request.FILES.get('prod_image_file'), prod_price=int(posted_data['prod_price']), prod_old_price=int(posted_data['prod_old_price']), prod_specs=posted_data['prod_specs']) #, prod_instock=bool(posted_data['prod_instock']), prod_date_added=datetime.datetime.strptime(posted_data['prod_date_added'], '%d/%m/%Y').date(), prod_date_updated=datetime.datetime.strptime(posted_data['prod_date_updated'], '%d/%m/%Y').date())
         serialized_product =  ProductSerializer(new_product)
         try:
             if ProductSerializer(data=serialized_product.data).is_valid():
+                
+                # saving image to db
+                prod_image = request.FILES.get('prod_image_file')
+                print(prod_image)
                 new_product.save()
+                
+                try:
+                                     
+                    # with open(f'main/images/prod_image/{prod_image}', 'rb') as img:
+                    #    storage_client.from_('Images').upload(file=img, path=f'product_images/{category.cat_title}/{prod_image}')
+                        
+                    image_public_url = storage_client.from_('Images').get_public_url(f'product_images/{category.cat_title}/{prod_image}')   
+                except:
+                    return Response({'message': 'Error In saving image '}, status=status.HTTP_400_BAD_REQUEST)
+                
+                new_product.prod_image_url = image_public_url
+                print(image_public_url)
+                new_product.save(update_fields=['prod_image_url'])
         except Exception as e:
             return Response({'message': f'Product Not saved someting went wrong :(: {e}' }, status=status.HTTP_204_NO_CONTENT)
         
     except Exception as e:
         return Response({'message': f'Something went wrong please try again: {e}'})
+    
     # create new product with user and 
     return Response({'message': 'data recived'})
+
+@api_view(['GET'])
+def get_products(request):
+    category_id = request.data.get('cat_id')
+    
+    try:
+        category = Category.objects.get(cat_id= category_id)
+    except:
+        return Response({'message': 'Category Not Found'}, status=status.HTTP_404_NOT_FOUND)
+    
+    try:
+        products = Product.objects.filter(category = category)
+        serializedData = GetProductSerializer(products, many=True)
+        print(serializedData.data)
+    except: 
+        return Response({'message': 'GET Products failed something went wrong'}, status=status.HTTP_404_NOT_FOUND)
+    
+    return Response({'message': 'Products fetched sucessful', 'productsData': serializedData.data}, status=status.HTTP_404_NOT_FOUND)

@@ -27,8 +27,9 @@ class userProfile(models.Model):
 class Category(models.Model):
     cat_id=ShortUUIDField(unique=True, length=10, max_length=20, prefix="ijh", alphabet="abcdefgh12345")
     cat_title=models.CharField(max_length=100)
-    cat_image=models.ImageField(upload_to="main/images/cat_image", default="", max_length=999)
-
+    cat_image_file=models.ImageField(upload_to="main/images/cat_image", default="", max_length=999)
+    cat_image_url = models.URLField(default='', max_length=300)
+    
     class Meta:
         verbose_name_plural="Categories"
 
@@ -39,8 +40,6 @@ class Category(models.Model):
         return self.cat_title
     
 
-
-
 #Product Database
 class Product(models.Model):
     prod_id = ShortUUIDField(unique=True, max_length=100, prefix="ijh", alphabet="ijklmno6789")
@@ -48,7 +47,8 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
 
     prod_title = models.CharField(max_length=100, default="")
-    prod_image = models.ImageField(upload_to="main/images/prod_image", default="")
+    prod_image_file = models.ImageField(upload_to="main/images/prod_image", default="", max_length=999)
+    prod_image_url = models.URLField(default="", max_length=300)
     prod_desc = models.TextField(null=True, blank=True, default="")
     prod_price = models.DecimalField(max_digits=10, decimal_places=2, default=1.99)  # Use a reasonable precision
     prod_old_price = models.DecimalField(max_digits=10, decimal_places=2, default=2.99)  # Use a reasonable precision
@@ -61,11 +61,13 @@ class Product(models.Model):
     class Meta:
         verbose_name_plural = "Products"
 
-    def product_image(self):
-        return mark_safe('<img src="%s" width="50" height="50"/>' % (self.prod_image.url))
+    def image_tag(self):
+        return mark_safe('<img src="%s" width="100" height="100"/>' % (self.prod_image_url))
         
     def __str__(self):
         return self.prod_title
+    
+    image_tag.allow_tags = True
  
     # PROD_STATUS=(
 #     ("out", "Out of Stock"),

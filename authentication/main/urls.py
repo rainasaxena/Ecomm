@@ -12,4 +12,5 @@ urlpatterns=[
     path('get-categories/', views.get_categories, name='get-categories'),
     path('create-category/', views.create_categories, name='create-categories'),
     path('create-product/', views.create_product, name='create-product'),
+    path('get-products/', views.get_products, name='get-products'),
 ]
