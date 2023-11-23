@@ -17,7 +17,7 @@ class UserProfileDetailsSerializer(ModelSerializer):
 class CategorySerializer(ModelSerializer):
     class Meta:
         model=Category
-        fields=('cat_id', 'cat_title', 'cat_image')
+        fields=('cat_id', 'cat_title', 'cat_image_file', 'cat_image_url')
 
 class ProductSerializer(ModelSerializer):
     class Meta:

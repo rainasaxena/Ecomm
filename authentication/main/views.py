@@ -130,12 +130,13 @@ def get_categories(request):
 def create_categories(request):
     cat_title = request.POST.get('cat_title', '')
     cat_image = request.FILES.get('cat_image_file')
+    cat_image_url = request.data.get('cat_image_url', '')
 
     if not cat_title or not cat_image:
         return Response({'message':'Please fill in all the required fields.'})
     
     try:
-        category=Category(cat_title=cat_title, cat_image_file=cat_image)
+        category=Category(cat_title=cat_title, cat_image_file=cat_image, cat_image_url=cat_image_url)
         print('Cat object Created')
         cat_id = category.cat_id
         category.save()
