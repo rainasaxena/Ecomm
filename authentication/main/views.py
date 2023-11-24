@@ -1,17 +1,16 @@
-from django.shortcuts import render, redirect
-from rest_framework.decorators import api_view
+from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
-from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-import matplotlib.pyplot as plt
 from storage3 import create_client
-import datetime
+from rest_framework_simplejwt import authentication
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from .forms import RegisterForm
-from .serializers import UserSerializer, UserProfileDetailsSerializer, CategorySerializer, ProductSerializer, GetProductSerializer
-from .models import userProfile, Category, Product
+from .serializers import UserSerializer, UserProfileDetailsSerializer#, CategorySerializer, ProductSerializer, GetProductSerializer
+from .models import userProfile, Category#, Product
 
 url = 'https://cdztpolwphkawmvkmrei.supabase.co/storage/v1'
 key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkenRwb2x3cGhrYXdtdmttcmVpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5ODgzNTY2OSwiZXhwIjoyMDE0NDExNjY5fQ.UHG5X_rjQ7k7OBFs2RnugvhmaVstsWk-3ehG-3UtlOQ"
@@ -78,8 +77,8 @@ def update_user_profile(request):
     last_name = request.data.get('last_name', '')
     user_addr = request.data.get('user_addr', '')
     user_gender = request.data.get('user_gender', '')
+    user_pfp_url = request.data.get('user_pfp_url', '')
     user_pfp = request.FILES.get('user_pfp')
-    print(user_pfp) 
     
     try:
         user = User.objects.get(username=username, email=userEmail)
@@ -104,8 +103,9 @@ def update_user_profile(request):
         try:
             with open(f'main/images/user_pfp/{user_pfp}', 'rb') as img:
                 storage_client.from_('Images').upload(file=img, path=f'user_pfp/{user_pfp}')
+                
             image_public_url = storage_client.from_('Images').get_public_url(f'user_pfp/pfp.jpg')
-            profile_details.user_pfp = image_public_url
+            profile_details.user_pfp_url = image_public_url
 
             serialize_user_profile_data = UserProfileDetailsSerializer(profile_details).data
             
@@ -117,106 +117,24 @@ def update_user_profile(request):
     
     except:
         return Response({'message':'Something went wrong please try again later'}, status=status.HTTP_400_BAD_REQUEST)
-
-@api_view(['GET'])
-def get_categories(request):
-    category_objects=Category.objects.all()
-    serializer_category_objects=CategorySerializer(category_objects, many=True)
-    print(serializer_category_objects.data)
-    return Response({'message':'Categories Featched', 'category_objects':serializer_category_objects.data}, status=status.HTTP_200_OK)
-
-
-@api_view(['POST'])
-def create_categories(request):
-    cat_title = request.POST.get('cat_title', '')
-    cat_image = request.FILES.get('cat_image_file')
-    cat_image_url = request.data.get('cat_image_url', '')
-
-    if not cat_title or not cat_image:
-        return Response({'message':'Please fill in all the required fields.'})
     
-    try:
-        category=Category(cat_title=cat_title, cat_image_file=cat_image, cat_image_url=cat_image_url)
-        print('Cat object Created')
-        cat_id = category.cat_id
-        category.save()
-
-        try:
-            category = Category.objects.get(cat_id=cat_id)
-            with open(f'main/images/cat_image/{cat_image}', 'rb') as img:
-                storage_client.from_('Images').upload(file=img, path=f'cat_image/{cat_image}')
-
-            image_public_url = storage_client.from_('Images').get_public_url(f'cat_image/{cat_image}')
-            category.cat_image_url = image_public_url
-
-            serializer_category_objects=CategorySerializer(category)
-            category.save()
-            # serialize_user_profile_data = UserProfileDetailsSerializer(profile_details).data
-
-        except Exception as e:
-            return Response({'message':f'Not able to save category images: {e}'})
-
+# this endpoint need authentication access token 
+@api_view(['POST'])
+@authentication_classes([authentication.JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def get_user_details(request):
+    data = request.data
+    try: 
+        user = User.objects.get(username=data['username'], email=data['email'])
     except:
-        return Response({'message':'Category not created!'})
-    
-    return Response({'message':'Category Created Sucessfully', 'category':serializer_category_objects.data}, status=status.HTTP_200_OK)
-
-@api_view(['POST'])
-def create_product(request):
-    posted_data = request.data
-    
-    # check for category
-    try:
-        category = Category.objects.get(cat_id=posted_data['category_id'])
-    except Exception as e:
-        return Response({'message': 'Category does not exist'}, status=status.HTTP_204_NO_CONTENT)
+        return Response({'message': 'User Not found'}, status=status.HTTP_400_BAD_REQUEST)
     
     try:
-        new_product = Product(category=category, prod_title=posted_data['prod_title'], prod_desc=posted_data['prod_desc'], prod_image_file=request.FILES.get('prod_image_file'), prod_price=int(posted_data['prod_price']), prod_old_price=int(posted_data['prod_old_price']), prod_specs=posted_data['prod_specs']) #, prod_instock=bool(posted_data['prod_instock']), prod_date_added=datetime.datetime.strptime(posted_data['prod_date_added'], '%d/%m/%Y').date(), prod_date_updated=datetime.datetime.strptime(posted_data['prod_date_updated'], '%d/%m/%Y').date())
-        serialized_product =  ProductSerializer(new_product)
-        try:
-            if ProductSerializer(data=serialized_product.data).is_valid():
-                
-                # saving image to db
-                prod_image = request.FILES.get('prod_image_file')
-                print(prod_image)
-                new_product.save()
-                
-                try:
-                                     
-                    # with open(f'main/images/prod_image/{prod_image}', 'rb') as img:
-                    #    storage_client.from_('Images').upload(file=img, path=f'product_images/{category.cat_title}/{prod_image}')
-                        
-                    image_public_url = storage_client.from_('Images').get_public_url(f'product_images/{category.cat_title}/{prod_image}')   
-                except:
-                    return Response({'message': 'Error In saving image '}, status=status.HTTP_400_BAD_REQUEST)
-                
-                new_product.prod_image_url = image_public_url
-                print(image_public_url)
-                new_product.save(update_fields=['prod_image_url'])
-        except Exception as e:
-            return Response({'message': f'Product Not saved someting went wrong :(: {e}' }, status=status.HTTP_204_NO_CONTENT)
+        userDetails = userProfile.objects.get(user=user)
+        serialized_user_data = UserSerializer(user).data
+        del serialized_user_data['password']
+        serialized_user_data['otherDetails'] = UserProfileDetailsSerializer(userDetails).data
+    except:
+        return Response({'message': 'Error while getting user details'}, status=status.HTTP_404_NOT_FOUND)
         
-    except Exception as e:
-        return Response({'message': f'Something went wrong please try again: {e}'})
-    
-    # create new product with user and 
-    return Response({'message': 'data recived'})
-
-@api_view(['GET'])
-def get_products(request):
-    category_id = request.data.get('cat_id')
-    
-    try:
-        category = Category.objects.get(cat_id= category_id)
-    except:
-        return Response({'message': 'Category Not Found'}, status=status.HTTP_404_NOT_FOUND)
-    
-    try:
-        products = Product.objects.filter(category = category)
-        serializedData = GetProductSerializer(products, many=True)
-        print(serializedData.data)
-    except: 
-        return Response({'message': 'GET Products failed something went wrong'}, status=status.HTTP_404_NOT_FOUND)
-    
-    return Response({'message': 'Products fetched sucessful', 'productsData': serializedData.data}, status=status.HTTP_404_NOT_FOUND)
+    return Response({'message':'User Is Present', 'allUserDetails': serialized_user_data})

@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-$ez(3auavj@ooew*n_t0&)3r-43v7$dhic)l$y)+)w1!1=w-c)
 DEBUG = True
 CORS_ORIGIN_ALLOW_ALL = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+# Add the following CSP directives to allow loading images from specific external sources
+CSP_DEFAULT_SRC = ("'self'", "cdztpolwphkawmvkmrei.supabase.co")
 
 
 # Application definition
@@ -39,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
+    'products',
+    'categories',
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
@@ -56,7 +61,6 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK = {
-    
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
