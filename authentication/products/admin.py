@@ -12,7 +12,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     def display_prod_image(self, obj):
         if obj.prod_image_url:
-            return mark_safe(f'<img src="{obj.prod_image_url}" width="100" height="100"/>')
+            return mark_safe(f'<img src="{obj.prod_image_url}" width="80" height="80"/>')
         else:
             return "No image available"
     display_prod_image.short_description = 'Product Image'
