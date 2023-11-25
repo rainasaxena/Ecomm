@@ -13,4 +13,4 @@ class RegisterForm(UserCreationForm):
 class UpdateUserProfileForm(forms.ModelForm):
     class Meta:
         model = userProfile
-        fields = ['user_pfp', 'user_addr', 'user_gender']
+        fields = ['user_pfp', 'user_gender']

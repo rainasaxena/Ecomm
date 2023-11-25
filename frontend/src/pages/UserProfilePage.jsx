@@ -10,27 +10,26 @@ const UserProfilePage = () => {
 
   useEffect(() => {
     setUser({
-      id: 51,
-      username: "test-2",
-      email: "test2@gmail.com",
-      first_name: "test",
-      last_name: "user",
+      id: 34,
+      username: "vishal_rk1",
+      email: "karangalevr@gmail.com",
+      first_name: "vishal",
+      last_name: "Karangale",
       user_gender: "M",
-      user_phone: "8208366283",
-      user_pfp: "/main/images/user_pfp/pizza-4_GaPkwcW.jpg",
+      user_phone: "8208366282",
       user_pfp_url:
-        "https://cdztpolwphkawmvkmrei.supabase.co/storage/v1/object/public/Images/user_pfp/pfp.jpg",
+        "https://cdztpolwphkawmvkmrei.supabase.co/storage/v1/object/public/Images/user_pfp/vishal_rk-pfp.jpeg?",
       address: [
         {
-          id: 2,
+          id: 8,
           address_type: "Home",
-          address_line1: "Plot. 99, Lol Nagar, fuk chowk",
+          address_line1: "Plot. 92, Dnyaneshwar Nagar, pipeline road",
           address_line2: "",
           city: "Ahmednagar",
           state: "Maharashtra",
           country: "India",
           postal_code: "414003",
-          user_profile: 54,
+          user_profile: 61,
         },
       ],
     });
@@ -71,7 +70,7 @@ const UserProfilePage = () => {
             labelText="Mobile Number"
             inputText={user.user_phone}
           />
-          <DropdownContainer labelText="Addresses"/>
+          <DropdownContainer labelText="Addresses" />
           <InfoContainer labelText="Username" inputText={user.username} />
         </div>
       </div>
