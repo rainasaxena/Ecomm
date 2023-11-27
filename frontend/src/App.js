@@ -11,6 +11,7 @@ import UpdateUserProfile from "./pages/UpdateUserProfile";
 import Home from "./pages/Home"
 import UserProfilePage from "./pages/UserProfilePage";
 
+
 function App() {
   return (
     <>
@@ -25,6 +26,7 @@ function App() {
         <Route exact path='/bracelets' element={<Bracelets/>}></Route>
         <Route exact path='/necklaces' element={<Necklaces/>}></Route>
         <Route exact path='/userprofile/:username' element={<UserProfilePage/>}></Route>
+       
       </Routes>
     </>
   );

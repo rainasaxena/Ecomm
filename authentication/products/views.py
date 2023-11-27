@@ -39,8 +39,8 @@ def create_product(request):
                 
                 try:
                                      
-                    # with open(f'main/images/prod_image/{prod_image}', 'rb') as img:
-                    #    storage_client.from_('Images').upload(file=img, path=f'product_images/{category.cat_title}/{prod_image}')
+                    with open(f'main/images/prod_image/{prod_image}', 'rb') as img:
+                       storage_client.from_('Images').upload(file=img, path=f'product_images/{category.cat_title}/{prod_image}')
                         
                     image_public_url = storage_client.from_('Images').get_public_url(f'product_images/{category.cat_title}/{prod_image}')   
                 except:
