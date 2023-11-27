@@ -1,6 +1,8 @@
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework_simplejwt import authentication
+from rest_framework.permissions import IsAuthenticated
 from storage3 import create_client
 
 from .models import Category
@@ -23,7 +25,8 @@ def get_categories(request):
     print(serializer_category_objects.data)
     return Response({'message':'Categories Featched', 'category_objects':serializer_category_objects.data}, status=status.HTTP_200_OK)
 
-
+@authentication_classes([authentication.JWTAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['POST'])
 def create_categories(request):
     cat_title = request.POST.get('cat_title', '')

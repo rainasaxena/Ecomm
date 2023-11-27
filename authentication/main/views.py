@@ -4,8 +4,8 @@ from rest_framework import status
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from storage3 import create_client
-from rest_framework_simplejwt import authentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework_simplejwt import authentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
@@ -43,7 +43,6 @@ def log_in(request):
             serializer = UserSerializer(user)
 
             user_data = serializer.data
-            del user_data['password'] # deleting password from data
             return Response({'messgae': 'User Logged in sucessful', 'user': user_data},)
         else:
             return Response({'message':'Incorrect Username or Password'})
@@ -64,7 +63,6 @@ def sign_up(request):
             try :
                 user = User.objects.create_user(username=username, password=password, email=email, last_name=last_name, first_name=first_name)
                 serialize_user_data = UserSerializer(user).data
-                del serialize_user_data['password']
                 user.save()
                 return Response({'message': 'User Profile Created Sucessfully', 'user': serialize_user_data}, status=status.HTTP_201_CREATED)
             except:
@@ -143,6 +141,8 @@ def get_user_details(request):
     
     return Response({'message':'User Is Present', 'allUserDetails': serialized_user_data})
 
+@authentication_classes([authentication.JWTAuthentication])
+@permission_classes([IsAuthenticated])
 class UpdateProfileView(APIView):
     
     def get(self, request):
@@ -231,3 +231,39 @@ class UpdateProfileView(APIView):
             return Response({'message': f'Something went wrong: {e}'}, status=status.HTTP_404_NOT_FOUND)
         
         return Response({'message':'Put request for user details'})
+
+
+@api_view(['POST'])
+def add_address(request):
+    data = request.data
+    
+    try:
+        user = User.objects.get(username=data['username'], email=data['email'])
+        userProfileObj = userProfile.objects.get(user=user)
+    except:
+        return Response({'message': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
+    
+    try:
+        addressObject = create_user_address_object(userProfileObj, data)
+        serializer = UserAddressSerializer(addressObject)
+        
+        if UserAddressSerializer(data=serializer.data).is_valid(raise_exception=True):
+            addressObject.save()
+            
+            userProfileObj = userProfile.objects.get(user=user)
+            addresses = UserAddress.objects.filter(user_profile=userProfileObj)
+            
+            serialized_user_data = UserSerializer(user).data
+            serialized_addresses = UserAddressSerializer(addresses, many=True).data
+            serialized_userDetails_data = UserProfileDetailsSerializer(userProfileObj).data
+
+            serialized_userDetails_data['address'] = serialized_addresses
+            
+            return Response({'message': 'Address Addes Sucessufully', 'user': {**serialized_user_data, **serialized_userDetails_data}}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'message': 'Address data is not valid'}, status=status.HTTP_406_NOT_ACCEPTABLE)
+        
+    except Exception as e:
+        return Response({'message': f'Something wend wrong cant save address: {e}'}, status=status.HTTP_406_NOT_ACCEPTABLE)
+    
+    

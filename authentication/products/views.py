@@ -22,7 +22,7 @@ def create_product(request):
     
     # check for category
     try:
-        category = Category.objects.get(cat_id=posted_data['category_id'])
+        category = Category.objects.get(cat_id=posted_data['cat_id'])
     except Exception as e:
         return Response({'message': 'Category does not exist'}, status=status.HTTP_204_NO_CONTENT)
     

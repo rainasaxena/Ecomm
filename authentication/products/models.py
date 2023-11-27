@@ -1,7 +1,7 @@
 from django.db import models
 from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
-
+from django.contrib.auth.models import User
 from categories.models import Category
 
 # Create your models here.
@@ -32,3 +32,10 @@ class Product(models.Model):
         return self.prod_title
     
     image_tag.allow_tags = True
+
+# class Wishlist(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+#     products = models.ManyToManyField(Product)
+    
+#     def __str__(self) -> str:
+#         return f'Wishlist for {self.user.username}'

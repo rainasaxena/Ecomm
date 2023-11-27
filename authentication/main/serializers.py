@@ -21,7 +21,7 @@ class UserProfileDetailsSerializer(ModelSerializer):
 class UserAddressSerializer(ModelSerializer):
     class Meta:
         model = UserAddress
-        fields = "__all__" #('address_type', 'address_line1', 'address_line2', 'city', 'state', 'contry', 'postal_code')
+        fields = ('address_type', 'address_line1', 'address_line2', 'city', 'state', 'country', 'postal_code')
 
 class UserProfileSerializer(ModelSerializer):
     addresses = UserAddressSerializer(many=True, required=False)
