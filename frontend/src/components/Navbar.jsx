@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import {navLinks} from "../utils/navLinksdata"
+// import {navLinks} from "../utils/navLinksdata"
 import Button from "./Button";
 import { Menu, X } from "lucide-react";
+import {CategoryContext}  from "../context/category/categoryContext";
+
 
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+  
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
   const navigate = useNavigate();
 
+  const {categoryData} = useContext(CategoryContext)
+  
   return (
     <>
       <nav className="bg-white border-b">
@@ -26,9 +30,9 @@ const Navbar = () => {
               LuxeSelect
             </h1>
             <ul className="hidden text-gray-600 md:text-sm font-semibold md:flex md:list-none md:transition duration-200">
-              {navLinks.map((link, index) => (
+              {categoryData && categoryData.map((link, index) => (
                 <li className="mx-3 hover:text-black" key={index}>
-                  <Link to={link.href}>{link.label}</Link>
+                  <Link to={`/${link.cat_id}/products`}>{link.cat_title}</Link>
                 </li>
               ))}
             </ul>
@@ -72,14 +76,9 @@ const Navbar = () => {
 
         {/* Sidebar Content */}
         <ul className="flex flex-col items-center py-8 px-4 text-gray-600">
-          {navLinks.map((link, index) => (
+          {categoryData && categoryData.map((link, index) => (
             <li className=" my-4 hover:text-black" key={index}>
-              <Link
-                to={link.href}
-                onClick={toggleSidebar}
-              >
-                {link.label}
-              </Link>
+              <Link to={`/${link.cat_title}`} onClick={toggleSidebar}>{link.cat_title}</Link>
             </li>
           ))}
         </ul>

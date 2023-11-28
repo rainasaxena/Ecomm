@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import Container from "../components/Container";
 
-const Home = () => {
+const Home = () => {   
+
   return (
     <Container>
       <div className="bg-transparent h-[250px] md:h-[500px] m-2 md:m-8 flex overflow-x-hidden ">

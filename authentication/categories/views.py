@@ -22,7 +22,6 @@ storage_client = create_client(url, headers, is_async=False)
 def get_categories(request):
     category_objects=Category.objects.all()
     serializer_category_objects=CategorySerializer(category_objects, many=True)
-    print(serializer_category_objects.data)
     return Response({'message':'Categories Featched', 'category_objects':serializer_category_objects.data}, status=status.HTTP_200_OK)
 
 @authentication_classes([authentication.JWTAuthentication])

@@ -10,12 +10,17 @@ import Necklaces from "./pages/Necklaces";
 import UpdateUserProfile from "./pages/UpdateUserProfile";
 import Home from "./pages/Home"
 import UserProfilePage from "./pages/UserProfilePage";
+import CategoryProducts from "./pages/CategoryProducts";
+
+
+// import {CategoryContextProvider} from "./context/categoryContextProvider";
+
 
 
 function App() {
   return (
+    // <CategoryContextProvider>
     <>
-      
       <Routes>
         <Route exact path='/' Component={Home}></Route>
         <Route exact path='/login' element={<Login/>}></Route>
@@ -26,9 +31,10 @@ function App() {
         <Route exact path='/bracelets' element={<Bracelets/>}></Route>
         <Route exact path='/necklaces' element={<Necklaces/>}></Route>
         <Route exact path='/userprofile/:username' element={<UserProfilePage/>}></Route>
-       
+        <Route exact path='/:cat_id/products' element={<CategoryProducts/>}></Route>
       </Routes>
     </>
+    // </CategoryContextProvider>
   );
 }
 
