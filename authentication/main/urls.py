@@ -10,6 +10,6 @@ urlpatterns=[
     path('user-profile/', views.UpdateProfileView.as_view(), name='user-profile'),
     path('add-address/', views.add_address, name='add-address'),
     # path('update-user-profile/', views.update_user_profile, name='update-user-profile'),
-    # path('get-user-details/', views.get_user_details, name="get-userDetails"),
+    path('get-user-details/', views.get_user_details, name="get-userDetails"),
     # path('test-user-create/', views.UpdateProfileView.as_view(), name='test-profile-update')
 ]

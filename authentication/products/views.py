@@ -58,7 +58,8 @@ def create_product(request):
     # create new product with user and 
     return Response({'message': 'data recived'})
 
-@api_view(['GET'])
+
+@api_view(['POST'])
 def get_products(request):
     category_id = request.data.get('cat_id')
     

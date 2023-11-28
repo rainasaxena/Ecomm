@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from storage3 import create_client
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework_simplejwt import authentication
+from rest_framework_simplejwt import authentication, tokens
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
@@ -48,6 +48,19 @@ def log_in(request):
             return Response({'message':'Incorrect Username or Password'})
     
     return Response({'messgae': 'User does not exist'})
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def log_out(request):
+    try:
+        refresh_token = request.data["refresh_token"]
+        token = tokens.RefreshToken(refresh_token)
+        token.blacklist()
+
+        return Response(status=status.HTTP_205_RESET_CONTENT)
+    
+    except Exception as e:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['POST'])
 def sign_up(request):
@@ -120,26 +133,26 @@ def update_user_profile(request):
 @permission_classes([IsAuthenticated])
 def get_user_details(request):
     data = request.data
-    try: 
+    try:
         user = User.objects.get(username=data['username'], email=data['email'])
     except:
-        return Response({'message': 'User Not found'}, status=status.HTTP_400_BAD_REQUEST)
-    
+        return Response({'message': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        
     try:
         userDetails = userProfile.objects.get(user=user)
 
         addresses = UserAddress.objects.filter(user_profile=userDetails)
-        
+            
         serialized_user_data = UserSerializer(user).data
         serialized_addresses = UserAddressSerializer(addresses, many=True).data
         serialized_userDetails_data = UserProfileDetailsSerializer(userDetails).data
 
         serialized_userDetails_data['address'] = serialized_addresses
-        serialized_user_data['otherDetails'] = serialized_userDetails_data
-    except:
-        return Response({'message': 'Error while getting user details'}, status=status.HTTP_404_NOT_FOUND)
-    
-    return Response({'message':'User Is Present', 'allUserDetails': serialized_user_data})
+            
+    except Exception as e:
+        return Response({'message': 'User Details Not Fetched, Someting Went Worng'}, status=status.HTTP_404_NOT_FOUND)
+        
+    return Response({'message': 'User Details Fetched', 'user': {**serialized_user_data, **serialized_userDetails_data}}, status=status.HTTP_200_OK)
 
 @authentication_classes([authentication.JWTAuthentication])
 @permission_classes([IsAuthenticated])
