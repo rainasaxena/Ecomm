@@ -26,10 +26,10 @@ function App() {
         <Route exact path='/login' element={<Login/>}></Route>
         <Route exact path='/signup' element={<Signup/>}></Route>
         <Route exact path='/update-profile/:username' element={<UpdateUserProfile/>}></Route>
-        <Route exact path='/rings' element={<Rings/>}></Route>
+        {/* <Route exact path='/rings' element={<Rings/>}></Route>
         <Route exact path='/earrings' element={<Earrings/>}></Route>
         <Route exact path='/bracelets' element={<Bracelets/>}></Route>
-        <Route exact path='/necklaces' element={<Necklaces/>}></Route>
+        <Route exact path='/necklaces' element={<Necklaces/>}></Route> */}
         <Route exact path='/userprofile/:username' element={<UserProfilePage/>}></Route>
         <Route exact path='/:cat_id/products' element={<CategoryProducts/>}></Route>
       </Routes>

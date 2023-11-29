@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import HeroImage from "../components/HeroImage";
-import Card from "../components/CardList";
+import Card from "../components/Card";
 import Container from "../components/Container";
 import  {CategoryContext}  from "../context/category/categoryContext"
 import { useParams } from "react-router-dom";
@@ -31,8 +31,12 @@ const CategoryProducts = () => {
       {categoryData && (
         <Container>
           <HeroImage imageUrl={categoryObjectData?.cat_image_url} />
+          <div className="flex flex-wrap m-2  justify-evenly md:justify-center gap-2 md:gap-5">
           <Card />
-          <div></div>
+          <Card />
+          <Card />
+          <Card />
+          </div>
         </Container>
       )}
     </>
