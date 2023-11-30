@@ -22,7 +22,7 @@ const Signup = () => {
       console.log(userData);
       await fetchData(userData.user.username, user.password).then((tokens) => {
         localStorage.setItem('user', JSON.stringify(userData.user));
-        localStorage.setItem('authTokens', tokens)
+        localStorage.setItem('authTokens', JSON.stringify(tokens))
         console.log("Items Saved!")
 
         //Save token
@@ -113,7 +113,7 @@ const Signup = () => {
             }}
           />
 
-          <Button buttonText="Signup" onClickFunction={()=>{navigate('/update-profile/:username')}}></Button>
+          <Button buttonText="Signup" type="submit"></Button>
         </form>
       </div>
     </div>

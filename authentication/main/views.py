@@ -77,9 +77,9 @@ def sign_up(request):
                 user = User.objects.create_user(username=username, password=password, email=email, last_name=last_name, first_name=first_name)
                 serialize_user_data = UserSerializer(user).data
                 user.save()
-                return Response({'message': 'User Profile Created Sucessfully', 'user': serialize_user_data}, status=status.HTTP_201_CREATED)
             except:
                 return Response({'message': 'Something went Wrog !!'}, status=status.HTTP_404_NOT_FOUND)
+    return Response({'message': 'User Profile Created Sucessfully', 'user': serialize_user_data}, status=status.HTTP_201_CREATED)
 
 @api_view(['PUT', 'PATCH'])
 def update_user_profile(request):
@@ -105,10 +105,12 @@ def update_user_profile(request):
         del serialize_user_data['password']
         user.save()
         
+        print(f'User pfp sent: {user_pfp}')
         profile_details = userProfile(user=user, user_addr=user_addr, user_gender=user_gender, user_pfp=user_pfp)
         profile_details.save()
             
         try:
+            
             with open(f'main/images/user_pfp/{user_pfp}', 'rb') as img:
                 storage_client.from_('Images').upload(file=img, path=f'user_pfp/{user_pfp}')
                 
@@ -183,7 +185,7 @@ class UpdateProfileView(APIView):
                
     def post(self, request):
         data = request.data
-        
+        print(data['username'])
         try:
             user = User.objects.get(username=data['username'], email=data['email'])
         except:
@@ -203,7 +205,7 @@ class UpdateProfileView(APIView):
             
             try:
                 user_pfp = data['user_pfp']
-                print(user_pfp)
+                print(f'User Pfp: {user_pfp}')
                 
                 with open(f'main/images/user_pfp/{user_pfp}', 'rb') as img:
                     storage_client.from_('Images').upload(file=img, path=f'user_pfp/{user_pfp}')
@@ -220,7 +222,7 @@ class UpdateProfileView(APIView):
         except Exception as e:
             return Response({'message': f'User Not updated something went wromg: {e}'})
         
-        return Response({'message':'User Details Updates Sucessfully', 'userDetailsDara': serialize_user_profile_data})
+        return Response({'message':'User Details Updates Sucessfully', 'userDetailsData': serialize_user_profile_data})
     
     def put(self, request):
         data = request.data

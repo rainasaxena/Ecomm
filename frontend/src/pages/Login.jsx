@@ -59,7 +59,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <Button buttonText="Login" onClickFunction={()=>{navigate('/')}}></Button>
+          <Button buttonText="Login" onClickFunction={handleSubmit}></Button>
           <div className="mt-3">
             Don't have an account?{" "}
             <a href="#">

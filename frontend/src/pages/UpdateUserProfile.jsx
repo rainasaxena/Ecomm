@@ -147,7 +147,7 @@ const UpdateUserProfile = () => {
             <option value="F">Female</option>
           </select>
 
-          <Button buttonText="Update Profile" onClickFunction={()=>{navigate('/')}}></Button>
+          <Button buttonText="Update Profile" type="submit"></Button>
         </form>
       </div>
     </div>
