@@ -71,8 +71,7 @@ def get_products(request):
     try:
         products = Product.objects.filter(category = category)
         serializedData = GetProductSerializer(products, many=True)
-        print(serializedData.data)
     except: 
         return Response({'message': 'GET Products failed something went wrong'}, status=status.HTTP_404_NOT_FOUND)
     
-    return Response({'message': 'Products fetched sucessful', 'productsData': serializedData.data}, status=status.HTTP_404_NOT_FOUND)
+    return Response({'message': 'Products fetched sucessful', 'productsData': serializedData.data}, status=status.HTTP_200_OK)

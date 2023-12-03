@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'products',
     'categories',
+    'cart',
+    'order',
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
