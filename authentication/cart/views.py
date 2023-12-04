@@ -44,7 +44,7 @@ def addToCart(request):
     serializer = CartSerializer(cart)
     return Response({'message': 'CartCreated', 'cartData': serializer.data}, status=200)
     
-@api_view(['GET'])
+@api_view(['POST'])
 @authentication_classes([authentication.JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def getUserCart(request):
