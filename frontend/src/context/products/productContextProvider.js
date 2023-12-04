@@ -8,21 +8,21 @@ export const ProductContextProvider = ({ children }) => {
     try {
       const url = "http://127.0.0.1:8000/get-products/";
 
-      const payload = {
-        cat_id: catId,
-      };
+      console.log(catId);
 
       const response = await fetch(url, {
         method: "POST",
-        header: {
+        mode: "cors",
+        credentials:"same-origin",
+        headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({cat_id:catId}),
       });
 
       const data = await response.json();
 
-      setProductData(data);
+      setProductData(data.productsData);
     } catch (error) {
       console.error("Error fetching product data:", error);
     }

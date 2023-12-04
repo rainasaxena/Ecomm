@@ -113,7 +113,7 @@ const Signup = () => {
             }}
           />
 
-          <Button buttonText="Signup" type="submit"></Button>
+          <Button type="submit">Signup</Button>
         </form>
       </div>
     </div>

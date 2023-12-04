@@ -1,32 +1,62 @@
-import React, { useState, useEffect } from "react";
-import { fetchData, getUserDetails } from "../utils/authUtils";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  fetchData,
+  getJWTTokens,
+  getUserDetails,
+  userLogIn,
+} from "../utils/authUtils";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
+import { UserAuthContext } from "../context/userAuth/userAuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [authTokens, setAuthTokens] = useState({});
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  // const [authTokens, setAuthTokens] = useState({});
   const [userData, setUserData] = useState(undefined);
+  const {
+    userObject,
+    setUserObject,
+    authTokens,
+    setAuthTokens,
+    isLoggedIn,
+    setIsLoggedIn,
+  } = useContext(UserAuthContext);
 
   const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
-    await fetchData(username, password).then(async (tokens) => {
-      setAuthTokens(tokens);
-      localStorage.setItem("authTokens", JSON.stringify(tokens)); // saving tokens in local storage
-      await getUserDetails(username, password, tokens.access).then((data) => {
-        setUserData(data);
-        localStorage.setItem("user", JSON.stringify(data)); // saving user data object
-        navigate("/");
-      });
-    });
-  };
+    try {
+      setIsError(false);
+      await getJWTTokens(username, password).then(async (tokens) => {
+        const userCred = await userLogIn(username, password, tokens.access);
+        localStorage.setItem("user", JSON.stringify(userCred));
+        const userObj = await getUserDetails(
+          username,
+          userCred.email,
+          tokens.access
+        );
 
-  useEffect(() => {
-    // console.log("JWT Tokens: ", authTokens);
-    // console.log("User Details: ", userData);
-  }, [authTokens, userData]);
+        setAuthTokens(tokens);
+        if (userObj) {
+          setUserObject(userObj);
+          setIsLoggedIn(true);
+          navigate("/");
+        } else {
+          navigate(`/update-profile/${userCred.username}`);
+        }
+      });
+
+      setIsLoading(false);
+    } catch (error) {
+      setIsError(true);
+      setIsLoading(false);
+      console.log("form handle error", error);
+    }
+  };
 
   return (
     <div className="text-sm md:text-base flex justify-center items-center font-poppins h-[100vh]">
@@ -59,11 +89,11 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <Button buttonText="Login" onClickFunction={handleSubmit}></Button>
+          <Button type="submit">Login</Button>
           <div className="mt-3">
-            Don't have an account?{" "}
+            Don't have an account?
             <a href="#">
-              <Link to={"/signup"}>Create here</Link>
+              <Link className="font-bold" to={"/signup"}> Create here</Link>
             </a>
           </div>
         </form>

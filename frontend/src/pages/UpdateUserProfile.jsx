@@ -56,8 +56,8 @@ const UpdateUserProfile = () => {
   };
 
   return (
-    <div className="text-sm md:text-base flex justify-center items-center h-[100vh]">
-      <div className="w-72 md:w-96 h-50 md:h-90 p-5 rounded-xl bg-white shadow-xl text-center ">
+    <div className="mt-10 text-sm md:text-base flex justify-center items-center h-[100vh]">
+      <div className="w-72 md:w-96 h-50 md:h-90 p-5 rounded-xl bg-white border text-center ">
         <h2 className="text-black mb-5 font-bold">Enter your details</h2>
 
         <form className="flex flex-col" onSubmit={handleFormSubmit}>
@@ -147,7 +147,7 @@ const UpdateUserProfile = () => {
             <option value="F">Female</option>
           </select>
 
-          <Button buttonText="Update Profile" type="submit"></Button>
+          <Button type="submit">Update Profile</Button>
         </form>
       </div>
     </div>

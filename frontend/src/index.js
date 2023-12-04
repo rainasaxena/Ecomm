@@ -7,10 +7,12 @@ import reportWebVitals from "./reportWebVitals";
 import Navbar from "./components/Navbar";
 import { CategoryContextProvider } from "./context/category/categoryContextProvider";
 import { ProductContextProvider } from "./context/products/productContextProvider";
+import { UserAuthContextProvider } from "./context/userAuth/userAuthContextProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <UserAuthContextProvider>
     <ProductContextProvider>
     <CategoryContextProvider>
       <BrowserRouter>
@@ -19,6 +21,7 @@ root.render(
       </BrowserRouter>
     </CategoryContextProvider>
     </ProductContextProvider>
+    </UserAuthContextProvider>
     
   </React.StrictMode>
 );

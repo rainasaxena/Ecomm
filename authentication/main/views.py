@@ -135,6 +135,7 @@ def update_user_profile(request):
 @permission_classes([IsAuthenticated])
 def get_user_details(request):
     data = request.data
+    print(data["email"])
     try:
         user = User.objects.get(username=data['username'], email=data['email'])
     except:

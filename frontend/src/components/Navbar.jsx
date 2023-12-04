@@ -1,22 +1,49 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-// import {navLinks} from "../utils/navLinksdata"
 import Button from "./Button";
-import { Menu, X } from "lucide-react";
-import {CategoryContext}  from "../context/category/categoryContext";
-
+import { Heart, Menu, ShoppingCartIcon, X } from "lucide-react";
+import { CategoryContext } from "../context/category/categoryContext";
+import { UserAuthContext } from "../context/userAuth/userAuthContext";
+import { logOutUser } from "../utils/authUtils";
+import Dropdown from "./Dropdown";
 
 const Navbar = () => {
+  //Handle the dropdown
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+  const handleDropdownClick = (path) => {
+    setIsDropdownOpen(!isDropdownOpen);
+    navigate(`${path}`);
+  };
+
+  const handleLogout = () => {
+    logOutUser();
+    setUserObject(null);
+    setIsLoggedIn(false);
+    setIsDropdownOpen(false);
+    navigate("/");
+  };
+
+  //Handle the hamburger menu
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
   const navigate = useNavigate();
 
-  const {categoryData} = useContext(CategoryContext)
-  
+  const { categoryData } = useContext(CategoryContext);
+  const {
+    userObject,
+    setUserObject,
+    authTokens,
+    setAuthTokens,
+    isLoggedIn,
+    setIsLoggedIn,
+  } = useContext(UserAuthContext);
+
   return (
     <>
       <nav className="bg-white border-b">
@@ -30,27 +57,77 @@ const Navbar = () => {
               LuxeSelect
             </h1>
             <ul className="hidden text-gray-600 md:text-sm font-semibold md:flex md:list-none md:transition duration-200">
-              {categoryData && categoryData.map((link, index) => (
-                <li className="mx-3 hover:text-black" key={index}>
-                  <Link to={`/${link.cat_id}/products`}>{link.cat_title}</Link>
-                </li>
-              ))}
+              {categoryData &&
+                categoryData.map((link, index) => (
+                  <li className="mx-3 hover:text-black" key={index}>
+                    <Link to={`/${link.cat_id}/products`}>
+                      {link.cat_title}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
 
-          <div className="flex gap-1">
-            <Button
-              buttonText="Login"
-              onClickFunction={() => {
-                navigate("/login");
-              }}
-            ></Button>
-            <Button
-              buttonText="Signup"
-              onClickFunction={() => {
-                navigate("/signup");
-              }}
-            ></Button>
+          <div className="">
+            {isLoggedIn ? (
+              <div className="flex gap-5 items-center">
+                <ShoppingCartIcon size={20} onClick={() => navigate("/cart")}/>
+                <Heart size={20} />
+                {userObject && (
+                  <div className="relative inline-block">
+                    <img
+                      src={userObject.user_pfp_url}
+                      className="h-[40px] w-[40px] inline-block object-cover cursor-pointer rounded-full"
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    />
+
+                    {isDropdownOpen && (
+                      <Dropdown
+                        children={
+                          <ul className="text-center">
+                            <div className="flex items-center justify-center">
+                              <li className="p-1 font-bold text-sm md:text-base">
+                                Hello {userObject.first_name}
+                              </li>
+                              <li className="p-1 font-bold text-xs md:text-sm text-gray-500">
+                                {userObject.user_phone}
+                              </li>
+                            </div>
+                            <li
+                              className="p-2 cursor-pointer"
+                              onClick={() =>
+                                handleDropdownClick(
+                                  `/userprofile/${userObject.username}`
+                                )
+                              }
+                            >
+                              My Profile
+                            </li>
+                            <li className="p-2">My Orders</li>
+                            <li
+                              className="p-2 cursor-pointer"
+                              onClick={handleLogout}
+                            >
+                              Logout
+                            </li>
+                          </ul>
+                        }
+                      />
+                    )}
+                  </div>
+                )}
+
+              </div>
+            ) : (
+              <div className="flex gap-1">
+                <Button onClickFunction={() => navigate("/login")}>
+                  Login
+                </Button>
+                <Button onClickFunction={() => navigate("/signup")}>
+                  Signup
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </nav>
@@ -67,20 +144,18 @@ const Navbar = () => {
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300`}
       >
-        <button
-              className="absolute top-4 right-4"
-              onClick={toggleSidebar}
-            >
-              <X className="text-black" />
-            </button>
+        <button className="absolute top-4 right-4" onClick={toggleSidebar}>
+          <X className="text-black" />
+        </button>
 
         {/* Sidebar Content */}
         <ul className="flex flex-col items-center py-8 px-4 text-gray-600">
-          {categoryData && categoryData.map((link, index) => (
-            <li className=" my-4 hover:text-black" key={index}>
-              <Link to={`/${link.cat_title}`} onClick={toggleSidebar}>{link.cat_title}</Link>
-            </li>
-          ))}
+          {categoryData &&
+            categoryData.map((link, index) => (
+              <li className=" my-4 hover:text-black" key={index} onClick={toggleSidebar}>
+                <Link to={`/${link.cat_id}/products`}>{link.cat_title}</Link>
+              </li>
+            ))}
         </ul>
       </div>
     </>
