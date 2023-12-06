@@ -10,7 +10,7 @@ const CategoryProducts = () => {
   const { cat_id } = useParams();
   const { categoryData } = useContext(CategoryContext);
   const { productData, setProductData, fetchProductData } =
-    useContext(ProductContext);
+useContext(ProductContext);
   const [categoryObjectData, setCategoryObjectData] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +33,7 @@ const CategoryProducts = () => {
         <Container>
           <HeroImage imageUrl={categoryObjectData?.cat_image_url} />
           <div className="flex flex-wrap m-2  justify-evenly md:justify-center gap-2 md:gap-5">
-            {productData.map((item, index) => (
+            {productData && productData.map((item, index) => (
               <Card
                 prod_image_url={item.prod_image_url}
                 prod_title={item.prod_title}

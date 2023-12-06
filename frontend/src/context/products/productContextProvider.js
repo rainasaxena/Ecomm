@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ProductContext } from "./productContext";
 
 export const ProductContextProvider = ({ children }) => {
@@ -7,8 +7,6 @@ export const ProductContextProvider = ({ children }) => {
   const fetchProductData = async (catId) => {
     try {
       const url = "http://127.0.0.1:8000/get-products/";
-
-      console.log(catId);
 
       const response = await fetch(url, {
         method: "POST",
