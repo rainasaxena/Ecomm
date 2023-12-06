@@ -8,23 +8,21 @@ import Navbar from "./components/Navbar";
 import { CategoryContextProvider } from "./context/category/categoryContextProvider";
 import { ProductContextProvider } from "./context/products/productContextProvider";
 import { UserAuthContextProvider } from "./context/userAuth/userAuthContextProvider";
-import { CartContextProvider } from "./context/cart/cartContextProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <UserAuthContextProvider>
-      <CategoryContextProvider>
-        <CartContextProvider>
-          <ProductContextProvider>
-            <BrowserRouter>
-              <Navbar />
-              <App />
-            </BrowserRouter>
-          </ProductContextProvider>
-        </CartContextProvider>
-      </CategoryContextProvider>
+    <ProductContextProvider>
+    <CategoryContextProvider>
+      <BrowserRouter>
+        <Navbar />
+        <App />
+      </BrowserRouter>
+    </CategoryContextProvider>
+    </ProductContextProvider>
     </UserAuthContextProvider>
+    
   </React.StrictMode>
 );
 
