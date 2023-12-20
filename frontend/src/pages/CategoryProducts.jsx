@@ -5,6 +5,7 @@ import Container from "../components/Container";
 import { CategoryContext } from "../context/category/categoryContext";
 import { useParams } from "react-router-dom";
 import { ProductContext } from "../context/products/productContext";
+import Test from "./Test";
 
 const CategoryProducts = () => {
   const { cat_id } = useParams();
@@ -33,15 +34,18 @@ const CategoryProducts = () => {
         <Container>
           <HeroImage imageUrl={categoryObjectData?.cat_image_url} />
           <div className="flex flex-wrap m-2  justify-evenly md:justify-center gap-2 md:gap-5">
-            {productData && productData.map((item, index) => (
-              <Card
-                prod_image_url={item.prod_image_url}
-                prod_title={item.prod_title}
-                prod_price={item.prod_price}
-                prod_old_price={item.prod_old_price}
-                prod_desc={item.prod_desc}
-              />
-            ))}
+            {productData &&
+              productData.map((item, index) => (
+                  <Card
+                    prod_id={item.prod_id}
+                    prod_image_url={item.prod_image_url}
+                    prod_title={item.prod_title}
+                    prod_price={item.prod_price}
+                    prod_old_price={item.prod_old_price}
+                    prod_desc={item.prod_desc}
+                  />
+                 
+              ))}
           </div>
         </Container>
       )}

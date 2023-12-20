@@ -71,8 +71,8 @@ const Navbar = () => {
           <div className="">
             {isLoggedIn ? (
               <div className="flex gap-5 items-center">
-                <ShoppingCartIcon size={20} onClick={() => navigate("/cart")}/>
-                <Heart size={20} />
+                <ShoppingCartIcon className="cursor-pointer" size={20} onClick={() => navigate("/cart")}/>
+                <Heart className="cursor-pointer" size={20} />
                 {userObject && (
                   <div className="relative inline-block">
                     <img

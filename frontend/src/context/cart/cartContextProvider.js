@@ -9,7 +9,6 @@ export const CartContextProvider = ({ children }) => {
   const { userObject, isLoggedIn, authTokens } = useContext(UserAuthContext);
 
   const fetchCartData = async () => {
-    console.log(userObject);
     if (!isLoggedIn) {
       setCartData([]);
     } else {
@@ -39,7 +38,7 @@ export const CartContextProvider = ({ children }) => {
 
   const addProductToCart = async (username, email, prod_id) => {
     try {
-      const isValid = checkTokenValidity();
+      const isValid = await checkTokenValidity();
       if (isValid) {
         const url = "http://127.0.0.1:8000/cart/add/";
         const res = await fetch(url, {
@@ -68,20 +67,24 @@ export const CartContextProvider = ({ children }) => {
 
   const removeProductFromCart = async (cartItem_id) => {
     try {
-      const url = "http://127.0.0.1:8000/cart/remove/";
-      const res = await fetch(url, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authTokens.access}`,
-        },
+      const isValid = await checkTokenValidity();
+      if (isValid) {
+        
+        const url = "http://127.0.0.1:8000/cart/remove/";
+        const res = await fetch(url, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authTokens.access}`,
+          },
 
-        body: JSON.stringify({ cartItem_id }),
-      });
+          body: JSON.stringify({ cartItem_id }),
+        });
 
-      if (res.ok) {
-        fetchCartData();
-        console.log("Item removed from cart");
+        if (res.ok) {
+          fetchCartData();
+          console.log("Item removed from cart");
+        }
       }
     } catch (e) {
       console.log("Error in deleting item");

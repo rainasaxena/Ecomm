@@ -59,46 +59,51 @@ const Login = () => {
   };
 
   return (
-    <div className="text-sm md:text-base flex justify-center items-center font-poppins h-[100vh]">
-      <div className="w-50 md:w-96 h-50 md:h-90 p-5 rounded-xl bg-white border text-center ">
-        <h2 className="text-black mb-5 font-bold">Login to your account</h2>
-        <form className="flex flex-col" onSubmit={handleSubmit}>
-          <label className="text-left mb-1 mt-2" for="username">
-            Username
-          </label>
-          <input
-            className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
-            name="username"
-            type="text"
-            id="username"
-            placeholder="Enter your username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+    <>
+      <div className="text-sm md:text-base flex justify-center items-center font-poppins h-[100vh]">
+        <div className="w-50 md:w-96 h-50 md:h-90 p-5 rounded-xl bg-white border text-center ">
+          <h2 className="text-black mb-5 font-bold">Login to your account</h2>
+          <form className="flex flex-col" onSubmit={handleSubmit}>
+            <label className="text-left mb-1 mt-2" for="username">
+              Username
+            </label>
+            <input
+              className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
+              name="username"
+              type="text"
+              id="username"
+              placeholder="Enter your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
 
-          <label className="text-left mb-1 mt-2" for="password">
-            Password
-          </label>
-          <input
-            className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg"
-            name="password"
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+            <label className="text-left mb-1 mt-2" for="password">
+              Password
+            </label>
+            <input
+              className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg"
+              name="password"
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-          <Button type="submit">Login</Button>
-          <div className="mt-3">
-            Don't have an account?
-            <a href="#">
-              <Link className="font-bold" to={"/signup"}> Create here</Link>
-            </a>
-          </div>
-        </form>
+            <Button type="submit">Login</Button>
+            <div className="mt-3">
+              Don't have an account?
+              <a href="#">
+                <Link className="font-bold" to={"/signup"}>
+                  {" "}
+                  Create here
+                </Link>
+              </a>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

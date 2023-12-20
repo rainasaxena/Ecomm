@@ -11,7 +11,7 @@ const Cart = () => {
     fetchCartData();
   }, []);
 
-  console.log(cartData);
+  
   return (
     <>
       <Container>
