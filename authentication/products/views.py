@@ -3,10 +3,16 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from storage3 import create_client
 
-from .models import Product
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework_simplejwt import authentication
+from rest_framework.permissions import IsAuthenticated 
+
+from .models import Product, Wishlist
+from django.contrib.auth.models import User
+
 from categories.models import Category
 
-from .serializers import GetProductSerializer, ProductSerializer
+from .serializers import GetProductSerializer, ProductSerializer, WishlistSerializer
 
 # Create your views here.
 url = 'https://cdztpolwphkawmvkmrei.supabase.co/storage/v1'
@@ -75,3 +81,93 @@ def get_products(request):
         return Response({'message': 'GET Products failed something went wrong'}, status=status.HTTP_404_NOT_FOUND)
     
     return Response({'message': 'Products fetched sucessful', 'productsData': serializedData.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+@authentication_classes([authentication.JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def getUserWishlist(request):
+    data = request.data
+    
+    try:
+        print(data['username'])
+        print(data['email'])
+        user = User.objects.get(username=data['username'], email=data['email'])
+        print(f'Cart Exist: {Wishlist.objects.filter(user=user).exists()}')
+    except:
+        return Response({'message': 'User Does not exist'}, status=404)
+    
+    try: 
+        if Wishlist.objects.filter(user=user).exists():
+            list_items = Wishlist.objects.get(user=user)
+            serializer = WishlistSerializer(list_items)
+
+            return Response({'message': 'Data fetching sucessfull', 'cartData': serializer.data}, status=200)
+        else:
+            print('Creating cart for user')
+            wishList = Wishlist.objects.create(user=user)
+            serializer = WishlistSerializer(wishList)
+            return Response({'message': 'Data fetching sucessfull', 'cartData': serializer.data}, status=200)
+    
+    except:
+        return Response({'message': 'Error in data getting'}, status=404)
+    
+    
+@api_view(['POST'])
+@authentication_classes([authentication.JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def addToWishlist(request):
+    # required fields => username, email, prod_id, 
+    data = request.data
+    try:
+        user = User.objects.get(username=data['username'], email=data['email'])
+    except:
+        return Response({'message': 'User Does not exist'}, status=404)
+    
+    try:
+        if Wishlist.objects.filter(user=user).exists():
+            wishList = Wishlist.objects.get(user=user)
+        else:
+            wishList = Wishlist.objects.create(user=user)
+            
+    except:
+        return Response({'message': 'Error in Creating cart'})
+    
+    try:
+        product = Product.objects.get(prod_id=data['prod_id'])
+    except Product.DoesNotExist:
+        return Response({'message': 'Product not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    wishList.products.add(product)
+    serializer = WishlistSerializer(wishList)
+    return Response({'message': 'CartCreated', 'cartData': serializer.data}, status=200)
+
+
+@api_view(['POST'])
+@authentication_classes([authentication.JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def removeFromWishlist(request):
+    # required fields => username, email, prod_id, 
+    data = request.data
+    try:
+        user = User.objects.get(username=data['username'], email=data['email'])
+    except:
+        return Response({'message': 'User Does not exist'}, status=404)
+    
+    try:
+        if Wishlist.objects.filter(user=user).exists():
+            wishList = Wishlist.objects.get(user=user)
+        else:
+            wishList = Wishlist.objects.create(user=user)
+            
+    except:
+        return Response({'message': 'Error in Creating cart'})
+    
+    try:
+        product = Product.objects.get(prod_id=data['prod_id'])
+    except Product.DoesNotExist:
+        return Response({'message': 'Product not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    wishList.products.remove(product)
+    serializer = WishlistSerializer(wishList)
+    return Response({'message': 'CartCreated', 'cartData': serializer.data}, status=200)
+    

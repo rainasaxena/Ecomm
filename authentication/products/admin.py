@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import mark_safe
-from .models import Product
+from .models import Product, Wishlist
 
 # Register your models here.
 class ProductAdmin(admin.ModelAdmin):
@@ -30,3 +30,4 @@ class ProductAdmin(admin.ModelAdmin):
     display_updated_at.short_description = "Updated On"
 
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Wishlist)

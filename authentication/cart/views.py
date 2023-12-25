@@ -52,15 +52,21 @@ def getUserCart(request):
     
     try:
         user = User.objects.get(username=data['username'], email=data['email'])
+        print(f'Cart Exist: {Cart.objects.filter(user=user).exists()}')
     except:
         return Response({'message': 'User Does not exist'}, status=404)
     
     try: 
-        cart = Cart.objects.get(user=user)
-        cart_items = CartItem.objects.filter(cart=cart)
-        serializer = CartItemsSerializer(cart_items, many=True)
+        if Cart.objects.filter(user=user).exists():
+            cart = Cart.objects.get(user=user)
+            cart_items = CartItem.objects.filter(cart=cart)
+            serializer = CartItemsSerializer(cart_items, many=True)
 
-        return Response({'message': 'Data fetching sucessfull', 'cartData': serializer.data}, status=200)
+            return Response({'message': 'Data fetching sucessfull', 'cartData': serializer.data}, status=200)
+        else:
+            print('Creating cart for user')
+            cart = Cart.objects.create(user=user)
+            return Response({'message': 'Data fetching sucessfull', 'cartData': []}, status=200)
     
     except:
         return Response({'message': 'Error in data getting'}, status=404)

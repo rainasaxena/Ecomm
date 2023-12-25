@@ -33,9 +33,9 @@ class Product(models.Model):
     
     image_tag.allow_tags = True
 
-# class Wishlist(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-#     products = models.ManyToManyField(Product)
+class Wishlist(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    products = models.ManyToManyField(Product)
     
-#     def __str__(self) -> str:
-#         return f'Wishlist for {self.user.username}'
+    def __str__(self) -> str:
+        return f'Wishlist for {self.user.username}'
