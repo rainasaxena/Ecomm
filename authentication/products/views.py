@@ -142,7 +142,7 @@ def addToWishlist(request):
     return Response({'message': 'CartCreated', 'cartData': serializer.data}, status=200)
 
 
-@api_view(['POST'])
+@api_view(['DELETE'])
 @authentication_classes([authentication.JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def removeFromWishlist(request):
@@ -160,7 +160,7 @@ def removeFromWishlist(request):
             wishList = Wishlist.objects.create(user=user)
             
     except:
-        return Response({'message': 'Error in Creating cart'})
+        return Response({'message': 'Error in deleting wishlist'})
     
     try:
         product = Product.objects.get(prod_id=data['prod_id'])
@@ -169,5 +169,5 @@ def removeFromWishlist(request):
 
     wishList.products.remove(product)
     serializer = WishlistSerializer(wishList)
-    return Response({'message': 'CartCreated', 'cartData': serializer.data}, status=200)
+    return Response({'message': 'Product deleted from wishlist', 'cartData': serializer.data}, status=200)
     

@@ -72,7 +72,7 @@ const Navbar = () => {
             {isLoggedIn ? (
               <div className="flex gap-5 items-center">
                 <ShoppingCartIcon className="cursor-pointer" size={20} onClick={() => navigate("/cart")}/>
-                <Heart className="cursor-pointer" size={20} />
+                <Heart className="cursor-pointer" size={20} onClick={() => navigate("/favourites")} />
                 {userObject && (
                   <div className="relative inline-block">
                     <img

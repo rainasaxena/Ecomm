@@ -10,9 +10,10 @@ import { useNavigate } from "react-router-dom";
 const UserProfilePage = () => {
   const { userObject, isLoggedIn } = useContext(UserAuthContext);
   const navigate = useNavigate();
+  
+  // console.log(isLoggedIn);
+  // console.log(userObject.address[0]);
 
-  // const [user, setUser] = useState({});
-  console.log(isLoggedIn);
 
   return (
     <Container>
@@ -60,10 +61,25 @@ const UserProfilePage = () => {
                 labelText="Mobile Number"
                 inputText={userObject.user_phone}
               />
-              <DropdownContainer labelText="Addresses" />
+              
+              <InfoContainer labelText="Address Line 1" inputText={userObject.address[0].address_line1} />
+              <InfoContainer labelText="Address Line 2" inputText={userObject.address[0].address_line2} />
+              <div className="flex gap-2 mx-8">
+                <Button>Home</Button>
+                <Button>Work</Button>
+              </div>
+              
               <InfoContainer
-                labelText="Username"
-                inputText={userObject.username}
+                labelText="City"
+                inputText={userObject.address[0].city}
+              />
+              <InfoContainer
+                labelText="State"
+                inputText={userObject.address[0].state}
+              />
+              <InfoContainer
+                labelText="Country"
+                inputText={userObject.address[0].country}
               />
             </div>
           </div>

@@ -1,9 +1,7 @@
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
 
-const DropdownContainer = ({ labelText, selectedValue, onSelectChange }) => {
-  const options = ["Option 1", "Option 2", "Option 3"]; // Replace with your desired options
-
+const DropdownContainer = ({ labelText, selectedValue, onSelectChange, options }) => {
   return (
     <div className="relative mx-8 my-4">
       <label className="block text-gray-700 text-sm md:text-base font-bold mb-1">

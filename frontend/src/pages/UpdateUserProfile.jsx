@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { fetchData, updateUserProfile } from "../utils/authUtils";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
+import DropdownContainer from "../components/DropdownContainer";
 
 const UpdateUserProfile = () => {
   const navigate = useNavigate();
@@ -53,10 +54,12 @@ const UpdateUserProfile = () => {
       console.log(data)
     }))
     // localStorage.setItem("user", JSON.stringify(updatedUserData));
-  };
 
+  };
+  const [addressType, setAddressType] = useState("Home");
+  
   return (
-    <div className="mt-10 text-sm md:text-base flex justify-center items-center h-[100vh]">
+    <div className="mt-10 text-sm md:text-base flex justify-center items-center] mb-20">
       <div className="w-72 md:w-96 h-50 md:h-90 p-5 rounded-xl bg-white border text-center ">
         <h2 className="text-black mb-5 font-bold">Enter your details</h2>
 
@@ -122,12 +125,58 @@ const UpdateUserProfile = () => {
           <label className="text-left mb-1 mt-2" for="user_addr">
             Address
           </label>
+          
+          <DropdownContainer labelText="Address Type" selectedValue={addressType} onSelectChange={setAddressType} options={["Home", "Work"]} />      
+
           <input
             className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
             name="user_addr"
             type="text"
             id="user_addr"
-            placeholder="Enter your address"
+            placeholder="Address Line 1"
+            onChange={handleInputChange}
+          />
+
+          <input
+            className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
+            name="user_addr"
+            type="text"
+            id="user_addr"
+            placeholder="Address Line 2"
+            onChange={handleInputChange}
+          />
+
+<input
+            className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
+            name="user_addr"
+            type="text"
+            id="user_addr"
+            placeholder="City"
+            onChange={handleInputChange}
+          />
+           <input
+            className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
+            name="user_addr"
+            type="text"
+            id="user_addr"
+            placeholder="State"
+            onChange={handleInputChange}
+          />
+          <input
+            className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
+            name="user_addr"
+            type="text"
+            id="user_addr"
+            placeholder="Postal Code"
+            onChange={handleInputChange}
+          />
+
+<input
+            className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
+            name="user_addr"
+            type="text"
+            id="user_addr"
+            placeholder="Country"
             onChange={handleInputChange}
           />
 
