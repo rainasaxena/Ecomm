@@ -6,11 +6,12 @@ import { CategoryContext } from "../context/category/categoryContext";
 import { useParams } from "react-router-dom";
 import { ProductContext } from "../context/products/productContext";
 import Test from "./Test";
+import Loader from "../components/Loader";
 
 const CategoryProducts = () => {
   const { cat_id } = useParams();
   const { categoryData } = useContext(CategoryContext);
-  const { productData, setProductData, fetchProductData } =
+  const { productData, setProductData, fetchProductData, isProductLoading } =
     useContext(ProductContext);
   const [categoryObjectData, setCategoryObjectData] = useState(null);
 
@@ -30,11 +31,18 @@ const CategoryProducts = () => {
 
   return (
     <>
+
+{isProductLoading && (
+            <Loader/>
+          )}
+    
       {categoryData && (
         <Container>
           <HeroImage imageUrl={categoryObjectData?.cat_image_url} />
           <div className="flex flex-wrap m-2  justify-evenly md:justify-center gap-2 md:gap-5">
-            {productData &&
+          
+
+            {productData && !isProductLoading &&
               productData.map((item, index) => (
                   <Card
                     prod_id={item.prod_id}

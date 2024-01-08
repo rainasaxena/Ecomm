@@ -4,38 +4,43 @@ import { useContext } from "react";
 import { WishlistContext } from "./wishlistContext";
 import { checkTokenValidity } from "../../utils/authUtils";
 
-
 export const WishlistContextProvider = ({ children }) => {
   const [wishlistData, setWishlistData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { userObject, isLoggedIn, authTokens } = useContext(UserAuthContext);
- 
 
   const fetchWishlistData = async (username, email) => {
-    //console.log(userObject);
+    setIsLoading(true);
     if (!isLoggedIn) {
       setWishlistData([]);
-    } else {
-      const isValid = await checkTokenValidity();
-      if (isValid) {
-        const url = "http://127.0.0.1:8000/wishlist/";
-        const res = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${authTokens.access}`,
-          },
+          } else {
+      try {
+        const isValid = await checkTokenValidity();
+        if (isValid) {
+          const url = "http://127.0.0.1:8000/wishlist/";
+          const res = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${authTokens.access}`,
+            },
 
-          body: JSON.stringify({
-            username: username,
-            email: email,
-          }),
-        });
+            body: JSON.stringify({
+              username: username,
+              email: email,
+            }),
+          });
 
-        if (res.ok) {
-          const data = await res.json();
-          setWishlistData(data.cartData.products);
-          console.log("Wishlist Data: ", data.cartData);
+          if (res.ok) {
+            const data = await res.json();
+            setWishlistData(data.cartData.products);
+            setIsLoading(false);
+            console.log("Wishlist Data: ", data.cartData);
+          }
         }
+      } catch (e) {
+        console.log(e);
+        setIsLoading(false);
       }
     }
   };
@@ -69,37 +74,30 @@ export const WishlistContextProvider = ({ children }) => {
     }
   };
 
-    const removeProductFromWishlist = async (username, email, prod_id) => {
-    
-      try {
-        const isValid = await checkTokenValidity();
-        if (isValid) {
-          
+  const removeProductFromWishlist = async (username, email, prod_id) => {
+    try {
+      const isValid = await checkTokenValidity();
+      if (isValid) {
+        const url = "http://127.0.0.1:8000/wishlist/remove/";
 
-          const url = "http://127.0.0.1:8000/wishlist/remove/";
-          console.log("hello5")
-          const res = await fetch(url, {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${authTokens.access}`,
-            },
+        const res = await fetch(url, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authTokens.access}`,
+          },
 
-            body: JSON.stringify({username, email, prod_id }),
-          });
+          body: JSON.stringify({ username, email, prod_id }),
+        });
 
-          if (res.ok) {
-            
-            fetchWishlistData(username, email);
-            // console.log("Item removed from wishlist");
-            // console.log("After deletion: ", wishlistData);
-          }            
-          
+        if (res.ok) {
+          fetchWishlistData(username, email);
         }
-      } catch (e) {
-        console.log("Error in deleting item");
       }
-    };
+    } catch (e) {
+      console.log("Error in deleting item");
+    }
+  };
 
   return (
     <WishlistContext.Provider
@@ -108,6 +106,7 @@ export const WishlistContextProvider = ({ children }) => {
         removeProductFromWishlist,
         fetchWishlistData,
         addProductToWishlist,
+        isLoading
       }}
     >
       {children}

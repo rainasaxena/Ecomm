@@ -6,9 +6,11 @@ import { checkTokenValidity } from "../../utils/authUtils";
 
 export const CartContextProvider = ({ children }) => {
   const [cartData, setCartData] = useState([]);
+  const [isCartLoading, setIsCartLoading] = useState(false);
   const { userObject, isLoggedIn, authTokens } = useContext(UserAuthContext);
 
   const fetchCartData = async () => {
+    setIsCartLoading(true);
     if (!isLoggedIn) {
       setCartData([]);
     } else {
@@ -31,7 +33,11 @@ export const CartContextProvider = ({ children }) => {
         if (res.ok) {
           const data = await res.json();
           setCartData(data.cartData);
+          console.log("The data in the cart is: ",data.cartData );
+          setIsCartLoading(false);
         }
+      }else{
+        setIsCartLoading(false);
       }
     }
   };
@@ -131,6 +137,7 @@ export const CartContextProvider = ({ children }) => {
         addProductToCart,
         removeProductFromCart,
         updateProductQuantity,
+        isCartLoading
       }}
     >
       {children}

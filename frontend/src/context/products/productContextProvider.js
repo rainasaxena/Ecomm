@@ -3,8 +3,10 @@ import { ProductContext } from "./productContext";
 
 export const ProductContextProvider = ({ children }) => {
   const [productData, setProductData] = useState(null);
+  const [isProductLoading, setIsProductLoading] = useState(false);
 
   const fetchProductData = async (catId) => {
+    setIsProductLoading(true);
     try {
       const url = "http://127.0.0.1:8000/get-products/";
 
@@ -23,13 +25,14 @@ export const ProductContextProvider = ({ children }) => {
       const data = await response.json();
 
       setProductData(data.productsData);
+      setIsProductLoading(false);
     } catch (error) {
       console.error("Error fetching product data:", error);
     }
   };
 
   return (
-    <ProductContext.Provider value={{ productData, setProductData, fetchProductData }}>
+    <ProductContext.Provider value={{ productData, setProductData, fetchProductData, isProductLoading }}>
       {children}
     </ProductContext.Provider>
   );

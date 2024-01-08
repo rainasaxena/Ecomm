@@ -10,6 +10,7 @@ import { ProductContextProvider } from "./context/products/productContextProvide
 import { UserAuthContextProvider } from "./context/userAuth/userAuthContextProvider";
 import { CartContextProvider } from "./context/cart/cartContextProvider";
 import { WishlistContextProvider } from "./context/wishlist/wishlistContextProvider";
+import Footer from "./components/Footer";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,6 +23,8 @@ root.render(
             <BrowserRouter>
               <Navbar />
               <App />
+              <Footer/>
+          
             </BrowserRouter>
             </WishlistContextProvider>
           </ProductContextProvider>
