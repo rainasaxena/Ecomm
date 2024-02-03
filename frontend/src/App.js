@@ -9,6 +9,7 @@ import CategoryProducts from "./pages/CategoryProducts";
 import Cart from "./pages/Cart";
 import Test from "./pages/Test";
 import Wishlist from "./pages/Wishlist";
+import Payments from "./pages/Payments";
 
 
 // import {CategoryContextProvider} from "./context/categoryContextProvider";
@@ -28,7 +29,7 @@ function App() {
         <Route exact path='/:cat_id/products' element={<CategoryProducts/>}></Route>
         <Route exact path='/cart' element={<Cart/>}></Route>
         <Route exact path='/favourites' element={<Wishlist/>}></Route>
-        <Route exact path='/modaltest' element={<Test/>}></Route>
+        <Route exact path='/payments' element={<Payments/>}></Route>
       </Routes>
     </>
     // </CategoryContextProvider>

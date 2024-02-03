@@ -10,15 +10,14 @@ import { useNavigate } from "react-router-dom";
 const UserProfilePage = () => {
   const { userObject, isLoggedIn } = useContext(UserAuthContext);
   const navigate = useNavigate();
-  
-  // console.log(isLoggedIn);
-  // console.log(userObject.address[0]);
 
+  // console.log(isLoggedIn);
+  console.log(userObject);
 
   return (
     <Container>
       {isLoggedIn && (
-        <div className="">
+        <div className="md:h-screen">
           <div className="border-b h-16 md:h-20 flex items-center justify-start">
             <div className="m-auto text-sm md:text-base font-bold">
               Profile Details
@@ -52,35 +51,49 @@ const UserProfilePage = () => {
             </div>
 
             <div className="md:flex md:flex-col md:w-full">
-              <InfoContainer
-                labelText="Username"
-                inputText={userObject.username}
-              />
-              <InfoContainer labelText="Email" inputText={userObject.email} />
-              <InfoContainer
-                labelText="Mobile Number"
-                inputText={userObject.user_phone}
-              />
-              
-              <InfoContainer labelText="Address Line 1" inputText={userObject.address[0].address_line1} />
-              <InfoContainer labelText="Address Line 2" inputText={userObject.address[0].address_line2} />
-              <div className="flex gap-2 mx-8">
-                <Button>Home</Button>
-                <Button>Work</Button>
+              <div className="md:flex md:flex-col justify-around">
+                <InfoContainer
+                  labelText="Username"
+                  inputText={userObject.username}
+                />
+                <InfoContainer labelText="Email" inputText={userObject.email} />
+                <InfoContainer
+                  labelText="Mobile Number"
+                  inputText={userObject.user_phone}
+                />
               </div>
-              
-              <InfoContainer
-                labelText="City"
-                inputText={userObject.address[0].city}
-              />
-              <InfoContainer
-                labelText="State"
-                inputText={userObject.address[0].state}
-              />
-              <InfoContainer
-                labelText="Country"
-                inputText={userObject.address[0].country}
-              />
+
+              <div className="block text-gray-700 text-sm md:text-base font-bold mb-1 ml-8">
+                My addresses
+              </div>
+
+              <div className="ml-8 sm:mb-6 flex flex-col md:flex md:flex-row gap-2 md:gap-5">
+                <div className="border rounded-lg p-4 text-sm h-48 w-64 md:h-56 md:w-96 md:text-base shadow-md">
+                  <p className="font-bold">
+                    {userObject.address[0].address_type}
+                  </p>
+                  <p>{userObject.address[0].address_line1}</p>
+                  <p>{userObject.address[0].address_line2}</p>
+                  <p>{userObject.address[0].city}</p>
+                  <p>{userObject.address[0].state}</p>
+                  <p>{userObject.address[0].country}</p>
+                  <p>{userObject.address[0].postal_code}</p>
+                  <p>{userObject.user_phone}</p>
+                </div>
+
+                <div className="border rounded-lg p-4 text-sm h-48 w-64 md:h-56 md:w-96 md:text-base shadow-md">
+                  <p className="font-bold">
+                    {userObject.address[1].address_type}
+                  </p>
+                  <p>{userObject.address[1].address_line1}</p>
+                  <p>{userObject.address[1].address_line2}</p>
+                  <p>{userObject.address[1].city}</p>
+                  <p>{userObject.address[1].state}</p>
+                  <p>{userObject.address[1].country}</p>
+                  <p>{userObject.address[1].postal_code}</p>
+                  <p>{userObject.user_phone}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

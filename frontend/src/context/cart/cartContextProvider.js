@@ -128,6 +128,17 @@ export const CartContextProvider = ({ children }) => {
     }
   };
 
+  
+  const  cartTotal = cartData.reduce((total, cartItem) => {
+    const productPrice = parseFloat(cartItem.product.prod_price);
+    const quantity = cartItem.quantity;
+    return total + productPrice * quantity;
+  }, 0);
+
+  console.log("context cart total:",cartTotal);
+  console.log("cart Data", cartData);
+
+
   return (
     <CartContext.Provider
       value={{
@@ -137,7 +148,8 @@ export const CartContextProvider = ({ children }) => {
         addProductToCart,
         removeProductFromCart,
         updateProductQuantity,
-        isCartLoading
+        isCartLoading, 
+        cartTotal
       }}
     >
       {children}

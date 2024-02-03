@@ -26,6 +26,14 @@ const Navbar = () => {
     navigate("/");
   };
 
+  const handleOrderClick = () => {
+    navigate("/cart");
+  };
+
+  const handleWishlistClick = () => {
+    navigate("/favourites");
+  };
+
   //Handle the hamburger menu
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => {
@@ -71,8 +79,16 @@ const Navbar = () => {
           <div className="">
             {isLoggedIn ? (
               <div className="flex gap-5 items-center">
-                <ShoppingCartIcon className="cursor-pointer" size={20} onClick={() => navigate("/cart")}/>
-                <Heart className="cursor-pointer" size={20} onClick={() => navigate("/favourites")} />
+                <ShoppingCartIcon
+                  className="cursor-pointer"
+                  size={20}
+                  onClick={() => navigate("/cart")}
+                />
+                <Heart
+                  className="cursor-pointer"
+                  size={20}
+                  onClick={() => navigate("/favourites")}
+                />
                 {userObject && (
                   <div className="relative inline-block">
                     <img
@@ -103,7 +119,18 @@ const Navbar = () => {
                             >
                               My Profile
                             </li>
-                            <li className="p-2">My Orders</li>
+                            <li
+                              className="p-2 cursor-pointer"
+                              onClick={handleOrderClick}
+                            >
+                              My Orders
+                            </li>
+                            <li
+                              className="p-2 cursor-pointer"
+                              onClick={handleWishlistClick}
+                            >
+                              My Wishlist
+                            </li>
                             <li
                               className="p-2 cursor-pointer"
                               onClick={handleLogout}
@@ -116,7 +143,6 @@ const Navbar = () => {
                     )}
                   </div>
                 )}
-
               </div>
             ) : (
               <div className="flex gap-1">
@@ -152,7 +178,11 @@ const Navbar = () => {
         <ul className="flex flex-col items-center py-8 px-4 text-gray-600">
           {categoryData &&
             categoryData.map((link, index) => (
-              <li className=" my-4 hover:text-black" key={index} onClick={toggleSidebar}>
+              <li
+                className=" my-4 hover:text-black"
+                key={index}
+                onClick={toggleSidebar}
+              >
                 <Link to={`/${link.cat_id}/products`}>{link.cat_title}</Link>
               </li>
             ))}
