@@ -1,0 +1,9 @@
+Django
+djangorestframework
+djangorestframework-simplejwt
+supabase
+django-cors-headers
+shortuuid
+psycopg2
+psycopg
+pillow

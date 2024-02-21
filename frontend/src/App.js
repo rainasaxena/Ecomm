@@ -1,24 +1,18 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import UpdateUserProfile from "./pages/UpdateUserProfile";
 import Home from "./pages/Home"
 import UserProfilePage from "./pages/UserProfilePage";
-import CategoryProducts from "./pages/CategoryProducts";
-import Cart from "./pages/Cart";
-import Test from "./pages/Test";
-import Wishlist from "./pages/Wishlist";
 import Payments from "./pages/Payments";
 
-
-// import {CategoryContextProvider} from "./context/categoryContextProvider";
-
-
+import Login from "./pages/authentication/Login";
+import Signup from "./pages/authentication/Signup";
+import CategoryProducts from "./pages/Product Page/CategoryProducts";
+import Cart from "./pages/Cart Page/Cart";
+import Wishlist from "./pages/Whishlist Page/Wishlist";
 
 function App() {
   return (
-    // <CategoryContextProvider>
     <>
       <Routes>
         <Route exact path='/' Component={Home}></Route>
@@ -32,7 +26,6 @@ function App() {
         <Route exact path='/payments' element={<Payments/>}></Route>
       </Routes>
     </>
-    // </CategoryContextProvider>
   );
 }
 

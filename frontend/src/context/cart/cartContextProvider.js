@@ -16,7 +16,7 @@ export const CartContextProvider = ({ children }) => {
     } else {
       const isValid = await checkTokenValidity();
       if (isValid) {
-        const url = "http://127.0.0.1:8000/cart/";
+        const url = "https://ecomm-backend-v1.onrender.com/cart/";
         const res = await fetch(url, {
           method: "POST",
           mode: "cors",
@@ -46,7 +46,7 @@ export const CartContextProvider = ({ children }) => {
     try {
       const isValid = await checkTokenValidity();
       if (isValid) {
-        const url = "http://127.0.0.1:8000/cart/add/";
+        const url = "https://ecomm-backend-v1.onrender.com/cart/add/";
         const res = await fetch(url, {
           method: "POST",
           headers: {
@@ -76,7 +76,7 @@ export const CartContextProvider = ({ children }) => {
       const isValid = await checkTokenValidity();
       if (isValid) {
         
-        const url = "http://127.0.0.1:8000/cart/remove/";
+        const url = "https://ecomm-backend-v1.onrender.com/cart/remove/";
         const res = await fetch(url, {
           method: "DELETE",
           headers: {
@@ -101,7 +101,7 @@ export const CartContextProvider = ({ children }) => {
     const isValid = await checkTokenValidity();
     if (isValid) {
       try {
-        const url = "http://127.0.0.1:8000/cart/update/";
+        const url = "https://ecomm-backend-v1.onrender.com/cart/update/";
         const res = await fetch(url, {
           method: "PUT",
           headers: {

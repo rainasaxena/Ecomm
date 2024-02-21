@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Button from "./Button";
 import { Heart, Menu, ShoppingCartIcon, X } from "lucide-react";
-import { CategoryContext } from "../context/category/categoryContext";
-import { UserAuthContext } from "../context/userAuth/userAuthContext";
-import { logOutUser } from "../utils/authUtils";
-import Dropdown from "./Dropdown";
+import { CategoryContext } from "../../context/category/categoryContext";
+import { UserAuthContext } from "../../context/userAuth/userAuthContext";
+import { logOutUser } from "../../utils/authUtils";
+import Dropdown from "../Profile Dropdown/Dropdown";
+import Button from "../Button";
 
 const Navbar = () => {
   //Handle the dropdown
@@ -61,9 +61,11 @@ const Navbar = () => {
               <Menu className="md:hidden" />
             </button>
 
-            <h1 className="space-x-2 text-lg md:text-xl font-bold">
-              LuxeSelect
-            </h1>
+            <Link to="/">
+              <h1 className="space-x-2 text-lg md:text-xl font-bold">
+                LuxeSelect
+              </h1>
+            </Link>
             <ul className="hidden text-gray-600 md:text-sm font-semibold md:flex md:list-none md:transition duration-200">
               {categoryData &&
                 categoryData.map((link, index) => (
@@ -110,7 +112,7 @@ const Navbar = () => {
                               </li>
                             </div>
                             <li
-                              className="p-2 cursor-pointer"
+                              className="p-2 cursor-pointer hover:bg-gray-100 hover:font-bold"
                               onClick={() =>
                                 handleDropdownClick(
                                   `/userprofile/${userObject.username}`
@@ -120,19 +122,19 @@ const Navbar = () => {
                               My Profile
                             </li>
                             <li
-                              className="p-2 cursor-pointer"
+                              className="p-2 cursor-pointer hover:bg-gray-100 hover:font-bold"
                               onClick={handleOrderClick}
                             >
                               My Orders
                             </li>
                             <li
-                              className="p-2 cursor-pointer"
+                              className="p-2 cursor-pointer hover:bg-gray-100 hover:font-bold"
                               onClick={handleWishlistClick}
                             >
                               My Wishlist
                             </li>
                             <li
-                              className="p-2 cursor-pointer"
+                              className="p-2 cursor-pointer hover:bg-gray-100 hover:font-bold"
                               onClick={handleLogout}
                             >
                               Logout

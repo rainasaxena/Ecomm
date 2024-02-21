@@ -4,13 +4,13 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import Navbar from "./components/Navbar";
 import { CategoryContextProvider } from "./context/category/categoryContextProvider";
 import { ProductContextProvider } from "./context/products/productContextProvider";
 import { UserAuthContextProvider } from "./context/userAuth/userAuthContextProvider";
 import { CartContextProvider } from "./context/cart/cartContextProvider";
 import { WishlistContextProvider } from "./context/wishlist/wishlistContextProvider";
 import Footer from "./components/Footer";
+import Navbar from "./components/Navbar/Navbar";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

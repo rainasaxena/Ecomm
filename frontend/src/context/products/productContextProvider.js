@@ -8,7 +8,7 @@ export const ProductContextProvider = ({ children }) => {
   const fetchProductData = async (catId) => {
     setIsProductLoading(true);
     try {
-      const url = "http://127.0.0.1:8000/get-products/";
+      const url = "https://ecomm-backend-v1.onrender.com/get-products/";
 
       console.log(catId);
 

@@ -1,7 +1,6 @@
 import { React, useContext, useState } from "react";
 import Container from "../components/Container";
 import Button from "../components/Button";
-import DropdownContainer from "../components/DropdownContainer";
 import InfoContainer from "../components/InfoContainer";
 import { Pen } from "lucide-react";
 import { UserAuthContext } from "../context/userAuth/userAuthContext";

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { fetchData, updateUserProfile } from "../utils/authUtils";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
-import DropdownContainer from "../components/DropdownContainer";
+import DropdownContainer from "../components/Profile Dropdown/DropdownContainer";
 
 const UpdateUserProfile = () => {
   const navigate = useNavigate();
@@ -50,14 +50,13 @@ const UpdateUserProfile = () => {
   //handling the submit
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    await(updateUserProfile(userDetails).then((data)=>{
-      console.log(data)
-    }))
+    await updateUserProfile(userDetails).then((data) => {
+      console.log(data);
+    });
     // localStorage.setItem("user", JSON.stringify(updatedUserData));
-
   };
   const [addressType, setAddressType] = useState("Home");
-  
+
   return (
     <div className="mt-10 text-sm md:text-base flex justify-center items-center] mb-20">
       <div className="w-72 md:w-96 h-50 md:h-90 p-5 rounded-xl bg-white border text-center ">
@@ -125,8 +124,13 @@ const UpdateUserProfile = () => {
           <label className="text-left mb-1 mt-2" for="user_addr">
             Address
           </label>
-          
-          <DropdownContainer labelText="Address Type" selectedValue={addressType} onSelectChange={setAddressType} options={["Home", "Work"]} />      
+
+          <DropdownContainer
+            labelText="Address Type"
+            selectedValue={addressType}
+            onSelectChange={setAddressType}
+            options={["Home", "Work"]}
+          />
 
           <input
             className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
@@ -146,7 +150,7 @@ const UpdateUserProfile = () => {
             onChange={handleInputChange}
           />
 
-<input
+          <input
             className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
             name="user_addr"
             type="text"
@@ -154,7 +158,7 @@ const UpdateUserProfile = () => {
             placeholder="City"
             onChange={handleInputChange}
           />
-           <input
+          <input
             className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
             name="user_addr"
             type="text"
@@ -171,7 +175,7 @@ const UpdateUserProfile = () => {
             onChange={handleInputChange}
           />
 
-<input
+          <input
             className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
             name="user_addr"
             type="text"

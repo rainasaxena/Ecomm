@@ -17,7 +17,6 @@ const WishlistCard = ({
   const { addProductToCart } = useContext(CartContext);
   const { removeProductFromWishlist } = useContext(WishlistContext);
 
-
   const notifyLogin = () =>
     toast(
       "You are not logged in!\n Please login or signup to continue shopping!",
@@ -37,12 +36,21 @@ const WishlistCard = ({
     });
 
   const handleRemoveFromWishlist = () => {
-    console.log("handleremovefrom wishlust"+ isLoggedIn);
+    console.log("handleremovefrom wishlust" + isLoggedIn);
     if (isLoggedIn === false) {
       notifyLogin();
     } else {
-      removeProductFromWishlist(userObject.username, userObject.email, prod_id);
-      notifyProductRemoved();
+      try {
+        removeProductFromWishlist(
+          userObject.username,
+          userObject.email,
+          prod_id
+        );
+      } catch (err) {
+        console.log(err);
+      } finally {
+        notifyProductRemoved();
+      }
     }
   };
 
@@ -61,7 +69,6 @@ const WishlistCard = ({
     <>
       <Toaster position="top-center" reverseOrder={true} />
       <div className="w-36 md:w-72 m-2 rounded-md overflow-hidden border">
-    
         <div className="p-1">
           <div
             className="relative"
@@ -72,19 +79,24 @@ const WishlistCard = ({
               src={prod_image_url}
               alt="Wishlist Card Image"
             />
-          <div className="absolute top-1 right-1 flex gap-1">
-            <div className="bg-white rounded-full p-1 opacity-80 md:invisible">
-            <Trash2Icon className=" visible md:invisible" size={18} color="black" onClick={handleRemoveFromWishlist}/>
+            <div className="absolute top-1 right-1 flex gap-1">
+              <div className="bg-white rounded-full p-1 opacity-80 md:invisible">
+                <Trash2Icon
+                  className=" visible md:invisible"
+                  size={18}
+                  color="black"
+                  onClick={handleRemoveFromWishlist}
+                />
+              </div>
+              <div className="bg-white rounded-full p-1 opacity-80 md:invisible">
+                <ShoppingCart
+                  className="visible md:invisible"
+                  size={18}
+                  color="black"
+                  onClick={handleCartClick}
+                />
+              </div>
             </div>
-            <div className="bg-white rounded-full p-1 opacity-80 md:invisible">
-            <ShoppingCart
-              className="visible md:invisible"
-              size={18}
-              color="black"
-              onClick={handleCartClick}
-              />
-              </div>
-              </div>
           </div>
         </div>
         <div className="p-2 md:p-4">
@@ -93,7 +105,11 @@ const WishlistCard = ({
               {prod_title}
             </p>
             <div className="flex gap-2">
-              <Trash2Icon className="invisible md:visible cursor-pointer" size={25} onClick={handleRemoveFromWishlist} />
+              <Trash2Icon
+                className="invisible md:visible cursor-pointer"
+                size={25}
+                onClick={handleRemoveFromWishlist}
+              />
               <ShoppingCart
                 className="invisible md:visible cursor-pointer"
                 size={25}
