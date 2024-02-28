@@ -90,6 +90,17 @@ def get_products(request):
     
     return Response({'message': 'Products fetched sucessful', 'productsData': serializedData.data}, status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+def get_featured_products(request):
+    try:
+        products = Product.objects.filter(is_featured=True)
+        serializedData = GetProductSerializer(products, many=True)
+    except: 
+        return Response({'message': 'GET Products failed something went wrong'}, status=status.HTTP_404_NOT_FOUND)
+    
+    return Response({'message': 'Products fetched sucessful', 'productsData': serializedData.data}, status=status.HTTP_200_OK)
+
+
 @api_view(['POST'])
 @authentication_classes([authentication.JWTAuthentication])
 @permission_classes([IsAuthenticated])
