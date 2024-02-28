@@ -17,7 +17,7 @@ export const WishlistContextProvider = ({ children }) => {
       try {
         const isValid = await checkTokenValidity();
         if (isValid) {
-          const url = "https://ecomm-backend-v1.onrender.com/wishlist/";
+          const url = `${process.env.REACT_APP_BACKEND_SERVER}/wishlist/`;
           const res = await fetch(url, {
             method: "POST",
             headers: {
@@ -49,7 +49,7 @@ export const WishlistContextProvider = ({ children }) => {
     try {
       const isValid = await checkTokenValidity();
       if (isValid) {
-        const url = "https://ecomm-backend-v1.onrender.com/wishlist/add/";
+        const url = `${process.env.REACT_APP_BACKEND_SERVER}/wishlist/add/`;
         const res = await fetch(url, {
           method: "POST",
           headers: {
@@ -78,7 +78,7 @@ export const WishlistContextProvider = ({ children }) => {
     try {
       const isValid = await checkTokenValidity();
       if (isValid) {
-        const url = "https://ecomm-backend-v1.onrender.com/wishlist/remove/";
+        const url = `${process.env.REACT_APP_BACKEND_SERVER}/wishlist/remove/`;
 
         const res = await fetch(url, {
           method: "DELETE",

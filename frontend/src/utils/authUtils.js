@@ -1,5 +1,3 @@
-
-
 export const getJWTTokens = async (username, password) => {
   const user = {
     username: username,
@@ -7,7 +5,7 @@ export const getJWTTokens = async (username, password) => {
   };
 
   try {
-    const response = await fetch("https://ecomm-backend-v1.onrender.com/api/token/", {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/api/token/`, {
       method: "POST",
       credentials: "same-origin",
       mode: "cors",
@@ -40,7 +38,7 @@ export const fetchData = async (username, password) => {
 export const getUserDetails = async (username, email, accessToken) => {
   try {
     console.log("Get user details acess token:", accessToken);
-    const res = await fetch("https://ecomm-backend-v1.onrender.com/get-user-details/", {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/get-user-details/`, {
       method: "POST",
       credentials: "same-origin",
       mode: "cors",
@@ -76,7 +74,7 @@ export const userLogIn = async (username, password, accessToken) => {
   };
 
   try {
-    const res = await fetch("https://ecomm-backend-v1.onrender.com/log-in/", {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/log-in/`, {
       method: "POST",
       credentials: "same-origin",
       mode: "cors",
@@ -110,7 +108,7 @@ export const checkTokenValidity = async () => {
 
   // verifying token
   try {
-    const res = await fetch("https://ecomm-backend-v1.onrender.com/api/token/verify/", {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/api/token/verify/`, {
       method: "POST",
       credentials: "same-origin",
       mode: "cors",
@@ -124,7 +122,7 @@ export const checkTokenValidity = async () => {
       return true;
     } else {
       const refreshResponse = await fetch(
-        "https://ecomm-backend-v1.onrender.com/api/token/refresh/",
+        `${process.env.REACT_APP_BACKEND_SERVER}/api/token/refresh/`,
         {
           method: "POST",
           credentials: "same-origin",
@@ -164,7 +162,7 @@ export const logOutUser = async () => {
 //Function for signup
 export const registerUser = async (userObject) => {
   try {
-    const response = await fetch("https://ecomm-backend-v1.onrender.com/sign-up/", {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/sign-up/`, {
       method: "POST",
       credentials: "same-origin",
       mode: "cors",
@@ -189,7 +187,7 @@ export const registerUser = async (userObject) => {
 //function to update user details
 export const updateUserProfile = async (userObject) => {
   try {
-    const response = await fetch("https://ecomm-backend-v1.onrender.com/update-user-profile/", {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/update-user-profile/`, {
       method: "PATCH",
       credentials: "same-origin",
       mode: "cors",

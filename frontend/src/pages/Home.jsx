@@ -1,7 +1,13 @@
 import React, { useContext } from "react";
 import Container from "../components/Container";
-
+import { ProductContext } from "../context/products/productContext"
 const Home = () => {
+  const {productData} = useContext(ProductContext);
+
+  console.log(productData);
+
+  // console.log(process.env.REACT_APP_BACKEND_SERVER);
+
   return (
     <Container>
       <div className="flex flex-col">

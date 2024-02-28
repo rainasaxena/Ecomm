@@ -19,13 +19,18 @@ const UploadData = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const authTokens = JSON.parse(localStorage.getItem("authTokens"));
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(authTokens.access);
+    
 
-    fetch('https://ecomm-backend-v1.onrender.com/create-product/', {
+    fetch('http://127.0.0.1:8000/create-product/', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authTokens.access}`,
       },
       body: JSON.stringify(formData)
     })

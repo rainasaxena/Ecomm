@@ -11,7 +11,7 @@ export const CategoryContextProvider = ({ children }) => {
     const fetchCategoryData = async () => {
       try {
         const response = await fetch(
-          `https://ecomm-backend-v1.onrender.com/get-categories/`
+          `${process.env.REACT_APP_BACKEND_SERVER}/get-categories/`
         );
         const data = await response.json();
         setCategoryData(data.category_objects);

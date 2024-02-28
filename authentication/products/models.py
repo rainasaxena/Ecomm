@@ -11,7 +11,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
 
     prod_title = models.CharField(max_length=100, default="")
-    prod_image_file = models.ImageField(upload_to="main/images/prod_image", default="", max_length=999)
+    prod_image_file = models.ImageField(upload_to="images/prod_image", default="", max_length=999)
     prod_image_url = models.URLField(default="", max_length=300)
     prod_desc = models.TextField(null=True, blank=True, default="")
     prod_price = models.DecimalField(max_digits=10, decimal_places=2, default=1.99)  # Use a reasonable precision
@@ -21,6 +21,7 @@ class Product(models.Model):
     prod_instock = models.BooleanField(default=True)
     prod_date_added = models.DateTimeField(auto_now_add=True)
     prod_date_updated = models.DateTimeField(blank=True, auto_now_add=True)
+    is_featured = models.BooleanField(default = False)
 
     class Meta:
         verbose_name_plural = "Products"

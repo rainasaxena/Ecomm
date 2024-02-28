@@ -16,7 +16,7 @@ export const CartContextProvider = ({ children }) => {
     } else {
       const isValid = await checkTokenValidity();
       if (isValid) {
-        const url = "https://ecomm-backend-v1.onrender.com/cart/";
+        const url = `${process.env.REACT_APP_BACKEND_SERVER}/cart/`;
         const res = await fetch(url, {
           method: "POST",
           mode: "cors",
@@ -46,7 +46,7 @@ export const CartContextProvider = ({ children }) => {
     try {
       const isValid = await checkTokenValidity();
       if (isValid) {
-        const url = "https://ecomm-backend-v1.onrender.com/cart/add/";
+        const url = `${process.env.REACT_APP_BACKEND_SERVER}/cart/add/`;
         const res = await fetch(url, {
           method: "POST",
           headers: {
@@ -76,7 +76,7 @@ export const CartContextProvider = ({ children }) => {
       const isValid = await checkTokenValidity();
       if (isValid) {
         
-        const url = "https://ecomm-backend-v1.onrender.com/cart/remove/";
+        const url = `${process.env.REACT_APP_BACKEND_SERVER}/cart/remove/`;
         const res = await fetch(url, {
           method: "DELETE",
           headers: {
@@ -101,7 +101,7 @@ export const CartContextProvider = ({ children }) => {
     const isValid = await checkTokenValidity();
     if (isValid) {
       try {
-        const url = "https://ecomm-backend-v1.onrender.com/cart/update/";
+        const url = `${process.env.REACT_APP_BACKEND_SERVER}/cart/update/`;
         const res = await fetch(url, {
           method: "PUT",
           headers: {

@@ -8,7 +8,7 @@ export const ProductContextProvider = ({ children }) => {
   const fetchProductData = async (catId) => {
     setIsProductLoading(true);
     try {
-      const url = "https://ecomm-backend-v1.onrender.com/get-products/";
+      const url = `${process.env.REACT_APP_BACKEND_SERVER}/get-products/`;
 
       console.log(catId);
 
