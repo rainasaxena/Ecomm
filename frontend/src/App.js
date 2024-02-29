@@ -11,6 +11,7 @@ import CategoryProducts from "./pages/Product Page/CategoryProducts";
 import Cart from "./pages/Cart Page/Cart";
 import Wishlist from "./pages/Whishlist Page/Wishlist";
 import UploadData from "./UploadData";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route exact path='/payments' element={<Payments/>}></Route>
         <Route exact path='/upload-data' element={<UploadData/>}></Route>
       </Routes>
+      <Footer />
     </>
   );
 }

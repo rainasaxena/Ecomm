@@ -12,7 +12,6 @@ const Home = () => {
   useEffect(() => {
     getFeaturedProducts();
   }, []);
-  console.log(featuredProducts);
 
   return (
     <Container>
@@ -47,7 +46,7 @@ const Home = () => {
           Featured Products @ Luxe..
         </div>
 
-        <div className="flex gap-2 m-2 md:m-8 md:gap-5 ">
+        <div className="flex gap-2 m-2 md:m-8 md:gap-5 h-screen">
           <div className="relative w-1/2 group">
             <a href={`${featuredProducts[0]?.category.cat_id}/products`}>
               <img

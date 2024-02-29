@@ -16,7 +16,7 @@ const Cart = () => {
 
   return (
     <Container>
-      <div className="flex flex-col gap-4 h-screen">
+      <div className="flex flex-col gap-4">
         <div className="p-5 text-sm md:text-base font-bold text-center border-b ">
           Your Cart
         </div>
@@ -27,17 +27,21 @@ const Cart = () => {
                 <Loader />
               </div>
             ) : (
-              <div className="mt-2 flex flex-col md:flex-row  items-center justify-center gap-5 ">
-                <div className="w-full border-r">
-                  {cartData &&
-                    !isCartLoading &&
-                    cartData.map((cartItem) => {
-                      return <CartCard key={cartItem.id} cartItem={cartItem} />;
-                    })}
-                </div>
+              <div className="h-screen overflow-y-scroll">
+                <div className="mt-2 flex flex-col md:flex-row justify-center gap-5">
+                  <div className="w-full border-r">
+                    {cartData &&
+                      !isCartLoading &&
+                      cartData.map((cartItem) => {
+                        return (
+                          <CartCard key={cartItem.id} cartItem={cartItem} />
+                        );
+                      })}
+                  </div>
 
-                <div className="align-top w-full md:w-1/2">
-                  <OrderSummarizer />
+                  <div className="align-top w-full md:w-1/2">
+                    <OrderSummarizer />
+                  </div>
                 </div>
               </div>
             )}

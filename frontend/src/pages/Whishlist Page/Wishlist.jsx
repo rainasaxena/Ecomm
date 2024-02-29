@@ -17,9 +17,11 @@ const Wishlist = () => {
     fetchWishlistData(userDetails.username, userDetails.email);
   }, []);
 
+  console.log(wishlistData);
+
   return (
     <Container>
-      <div className="flex flex-col h-max">
+      <div className="flex flex-col">
         <div className="p-5 text-sm md:text-base font-bold text-center border-b ">
           Your Wishlist
         </div>
@@ -28,18 +30,20 @@ const Wishlist = () => {
             <Loader />
           </div>
         ) : (
-          <div className="flex flex-wrap m-2  justify-evenly md:justify-center gap-2 md:gap-5">
-            {wishlistData &&
-              wishlistData.map((item, index) => (
-                <WishlistCard
-                  prod_id={item.prod_id}
-                  prod_image_url={item.prod_image_url}
-                  prod_title={item.prod_title}
-                  prod_price={item.prod_price}
-                  prod_old_price={item.prod_old_price}
-                  prod_desc={item.prod_desc}
-                />
-              ))}
+          <div className="h-screen overflow-y-scroll">
+            <div className="flex flex-wrap m-2 justify-evenly md:justify-center gap-2 md:gap-5">
+              {wishlistData &&
+                wishlistData.map((item, index) => (
+                  <WishlistCard
+                    prod_id={item.prod_id}
+                    prod_image_url={item.prod_image_url}
+                    prod_title={item.prod_title}
+                    prod_price={item.prod_price}
+                    prod_old_price={item.prod_old_price}
+                    prod_desc={item.prod_desc}
+                  />
+                ))}
+            </div>
           </div>
         )}
       </div>

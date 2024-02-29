@@ -36,7 +36,6 @@ const WishlistCard = ({
     });
 
   const handleRemoveFromWishlist = () => {
-    console.log("handleremovefrom wishlust" + isLoggedIn);
     if (isLoggedIn === false) {
       notifyLogin();
     } else {
@@ -55,7 +54,6 @@ const WishlistCard = ({
   };
 
   const handleCartClick = () => {
-    console.log(isLoggedIn);
     if (isLoggedIn === false) {
       notifyLogin();
     } else {
@@ -64,8 +62,6 @@ const WishlistCard = ({
       notifyProductAdded();
     }
   };
-
-  console.log(prod_image_url)
 
   return (
     <>

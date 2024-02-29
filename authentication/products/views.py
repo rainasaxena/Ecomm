@@ -108,10 +108,7 @@ def getUserWishlist(request):
     data = request.data
     
     try:
-        print(data['username'])
-        print(data['email'])
         user = User.objects.get(username=data['username'], email=data['email'])
-        print(f'Cart Exist: {Wishlist.objects.filter(user=user).exists()}')
     except:
         return Response({'message': 'User Does not exist'}, status=404)
     
@@ -119,10 +116,8 @@ def getUserWishlist(request):
         if Wishlist.objects.filter(user=user).exists():
             list_items = Wishlist.objects.get(user=user)
             serializer = WishlistSerializer(list_items)
-
             return Response({'message': 'Data fetching sucessfull', 'cartData': serializer.data}, status=200)
         else:
-            print('Creating cart for user')
             wishList = Wishlist.objects.create(user=user)
             serializer = WishlistSerializer(wishList)
             return Response({'message': 'Data fetching sucessfull', 'cartData': serializer.data}, status=200)
