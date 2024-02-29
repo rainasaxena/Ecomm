@@ -54,7 +54,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-white border-b">
+      <nav className="shadow-md bg-white border-b">
         <div className="flex h-16 items-center px-4 space-x-2">
           <div className="flex-1 flex items-center space-x-5">
             <button onClick={toggleSidebar}>

@@ -36,7 +36,7 @@ const Cart = () => {
                     })}
                 </div>
 
-                <div className="w-full md:w-1/2">
+                <div className="align-top w-full md:w-1/2">
                   <OrderSummarizer />
                 </div>
               </div>

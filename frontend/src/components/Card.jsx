@@ -63,9 +63,9 @@ const Card = ({
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
       />
-      <div className="w-36 md:w-72 mb-2 rounded-md overflow-hidden border">
+      <div className="shadow-md w-36 md:w-72 mb-2 rounded-md overflow-hidden border">
         <div className="p-2">
-          <div className="relative" onClick={() => setIsOpen(true)}>
+          <div className="" onClick={() => setIsOpen(true)}>
             <img
               className="h-28 md:h-56 w-full rounded-sm object-cover"
               src={prod_image_url}

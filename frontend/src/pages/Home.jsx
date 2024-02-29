@@ -1,48 +1,106 @@
 import React, { useContext } from "react";
 import Container from "../components/Container";
-import { ProductContext } from "../context/products/productContext"
+import { ProductContext } from "../context/products/productContext";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import SwiperGallery from "../components/SwiperGallery/SwiperGallery";
+import { Swiper, SwiperSlide } from "swiper/react";
+
 const Home = () => {
-  const {productData} = useContext(ProductContext);
+  const { getFeaturedProducts, featuredProducts } = useContext(ProductContext);
 
-  console.log(productData);
-
-  // console.log(process.env.REACT_APP_BACKEND_SERVER);
+  useEffect(() => {
+    getFeaturedProducts();
+  }, []);
+  console.log(featuredProducts);
 
   return (
     <Container>
       <div className="flex flex-col">
         <div className="bg-transparent h-[250px] md:h-[500px] m-2 md:m-8 flex overflow-x-hidden ">
-          <img
-            className="h-full w-full object-cover rounded-xl relative"
-            src="https://images.unsplash.com/photo-1504903669937-2f825bf5956f?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt=""
-          />
+          <SwiperGallery>
+            <SwiperSlide>
+              <img
+                className="h-full w-full object-cover rounded-xl relative"
+                src="https://www.noajewelry.shop/cdn/shop/files/A625E631-3E2D-42FD-A2C4-97DAE9837B37.png?v=1706747530"
+                alt=""
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                className="h-full w-full object-cover rounded-xl relative"
+                src="https://www.noajewelry.shop/cdn/shop/collections/resort-collection-139526.jpg?v=1681847923"
+                alt=""
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                className="h-full w-full object-cover rounded-xl relative"
+                src="https://www.noajewelry.shop/cdn/shop/collections/image.heic?v=1702858042s"
+                alt=""
+              />
+            </SwiperSlide>
+          </SwiperGallery>
+        </div>
+
+        <div className="font-bold text-md md:text-2xl m-2 md:m-8">
+          Featured Products @ Luxe..
         </div>
 
         <div className="flex gap-2 m-2 md:m-8 md:gap-5 ">
-          <div className="w-1/2">
-            <img
-              className="h-full w-full object-cover rounded-xl "
-              src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt=""
-            />
+          <div className="relative w-1/2 group">
+            <a href={`${featuredProducts[0]?.category.cat_id}/products`}>
+              <img
+                className="shadow-md h-full w-full object-cover rounded-xl"
+                src={featuredProducts[0]?.prod_image_url}
+                alt=""
+              />
+              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 bg-gradient-to-b from-transparent to-black rounded-xl">
+                <h2 className=" text-white text-sm md:text-4xl font-bold p-2 rounded-xl">
+                  {featuredProducts[0]?.prod_title}
+                </h2>
+                <h2 className="text-center text-white text-xs md:text-2xl p-2 rounded-xl">
+                  {featuredProducts[0]?.prod_desc}
+                </h2>
+              </div>
+            </a>
           </div>
 
           <div className="w-1/2 gap-2 md:gap-5 flex flex-col">
-            <div className="h-1/2">
-              <img
-                className="h-full w-full object-cover rounded-xl"
-                src="https://images.unsplash.com/photo-1499899833954-5ecd9439d17f?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt=""
-              />
+            <div className="relative h-1/2 group">
+              <a href={`${featuredProducts[1]?.category.cat_id}/products`}>
+                <img
+                  className="shadow-md h-full w-full object-cover rounded-xl"
+                  src={featuredProducts[1]?.prod_image_url}
+                  alt=""
+                />
+                <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 bg-gradient-to-b from-transparent to-black rounded-xl">
+                  <h2 className=" text-center text-white text-sm md:text-4xl font-bold p-2 rounded-xl">
+                    {featuredProducts[1]?.prod_title}
+                  </h2>
+                  <h2 className="text-center text-white text-xs md:text-2xl p-2 rounded-xl">
+                    {featuredProducts[1]?.prod_desc}
+                  </h2>
+                </div>
+              </a>
             </div>
 
-            <div className=" h-1/2">
-              <img
-                className="h-full w-full object-cover rounded-xl"
-                src="https://images.unsplash.com/photo-1499899833954-5ecd9439d17f?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt=""
-              />
+            <div className="relative h-1/2 group">
+              <a href={`${featuredProducts[2]?.category.cat_id}/products`}>
+                <img
+                  className="shadow-md h-full w-full object-cover rounded-xl"
+                  src={featuredProducts[2]?.prod_image_url}
+                  alt=""
+                />
+                <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 bg-gradient-to-b from-transparent to-black rounded-xl">
+                  <h2 className=" text-white text-sm md:text-4xl font-bold p-2 rounded-xl">
+                    {featuredProducts[2]?.prod_title}
+                  </h2>
+                  <h2 className="text-center text-white text-xs md:text-2xl p-2 rounded-xl">
+                    {featuredProducts[2]?.prod_desc}
+                  </h2>
+                </div>
+              </a>
             </div>
           </div>
         </div>

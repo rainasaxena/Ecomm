@@ -65,6 +65,8 @@ const WishlistCard = ({
     }
   };
 
+  console.log(prod_image_url)
+
   return (
     <>
       <Toaster position="top-center" reverseOrder={true} />

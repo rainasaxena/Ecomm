@@ -45,7 +45,7 @@ const Signup = () => {
 
   return (
     <div className="text-sm md:text-base flex justify-center items-center h-[100vh]">
-      <div className="w-72 md:w-96 h-50 md:h-90 p-5 rounded-xl bg-white border text-center ">
+      <div className="shadow-md w-72 md:w-96 h-50 md:h-90 p-5 rounded-xl bg-white border text-center ">
         <h2 className="text-black mb-5 font-bold">Register Yourself</h2>
         {isLoading ? (
           <Loader className="h-8 w-8" />
