@@ -6,6 +6,7 @@ import { checkTokenValidity } from "../../utils/authUtils";
 
 export const CartContextProvider = ({ children }) => {
   const [cartData, setCartData] = useState([]);
+  const [cartId, setCartId] = useState(null);
   const [isCartLoading, setIsCartLoading] = useState(false);
   const { userObject, isLoggedIn, authTokens } = useContext(UserAuthContext);
 
@@ -33,10 +34,10 @@ export const CartContextProvider = ({ children }) => {
         if (res.ok) {
           const data = await res.json();
           setCartData(data.cartData);
-          console.log("The data in the cart is: ",data.cartData );
+          setCartId(data.cart_id);
           setIsCartLoading(false);
         }
-      }else{
+      } else {
         setIsCartLoading(false);
       }
     }
@@ -75,7 +76,6 @@ export const CartContextProvider = ({ children }) => {
     try {
       const isValid = await checkTokenValidity();
       if (isValid) {
-        
         const url = `${process.env.REACT_APP_BACKEND_SERVER}/cart/remove/`;
         const res = await fetch(url, {
           method: "DELETE",
@@ -128,16 +128,11 @@ export const CartContextProvider = ({ children }) => {
     }
   };
 
-  
-  const  cartTotal = cartData.reduce((total, cartItem) => {
+  const cartTotal = cartData.reduce((total, cartItem) => {
     const productPrice = parseFloat(cartItem.product.prod_price);
     const quantity = cartItem.quantity;
     return total + productPrice * quantity;
   }, 0);
-
-  console.log("context cart total:",cartTotal);
-  console.log("cart Data", cartData);
-
 
   return (
     <CartContext.Provider
@@ -148,8 +143,9 @@ export const CartContextProvider = ({ children }) => {
         addProductToCart,
         removeProductFromCart,
         updateProductQuantity,
-        isCartLoading, 
-        cartTotal
+        isCartLoading,
+        cartTotal,
+        cartId,
       }}
     >
       {children}

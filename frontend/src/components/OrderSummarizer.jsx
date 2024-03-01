@@ -45,7 +45,7 @@ const OrderSummarizer = () => {
         <div className=" font-bold">{convenienceFee + cartTotal}</div>
       </div>
 
-      <Button onClickFunction={()=>navigate('/payments')}>
+      <Button onClickFunction={()=>navigate('/payment')}>
         Confirm Order
       </Button>
       

@@ -62,7 +62,7 @@ def getUserCart(request):
             cart_items = CartItem.objects.filter(cart=cart)
             serializer = CartItemsSerializer(cart_items, many=True)
 
-            return Response({'message': 'Data fetching sucessfull', 'cartData': serializer.data}, status=200)
+            return Response({'message': 'Data fetching sucessfull', 'cartData': serializer.data, 'cart_id': cart.cart_id}, status=200)
         else:
             print('Creating cart for user')
             cart = Cart.objects.create(user=user)

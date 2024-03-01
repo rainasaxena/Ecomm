@@ -2,10 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 from products.models import Product
 
-# referances ==> https://github.com/justdjango/django-ecommerce/blob/master/core/models.py
+import uuid
 
+# referances ==> https://github.com/justdjango/django-ecommerce/blob/master/core/models.py
+def generate_unique_cart_id():
+    return str(uuid.uuid4())
 
 class Cart(models.Model):
+    cart_id = models.CharField(max_length=50, unique=True, default=generate_unique_cart_id)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product, through='CartItem', related_name='carts')
     created_at = models.DateTimeField(auto_now_add=True)
