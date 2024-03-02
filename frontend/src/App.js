@@ -14,6 +14,7 @@ import UploadData from "./UploadData";
 import Footer from "./components/Footer";
 import PaymentPage from "./pages/Payment/Payment";
 import PaymentStatusPage from "./pages/Payment/PaymentStatusPage";
+import OrdersPage from "./pages/Orders Page/Orders";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           element={<CategoryProducts />}
         ></Route>
         <Route exact path="/cart" element={<Cart />}></Route>
+        <Route exact path="/orders" element={<OrdersPage />}></Route>
         <Route exact path="/favourites" element={<Wishlist />}></Route>
         <Route exact path="/payments" element={<Payments />}></Route>
         <Route exact path="/upload-data" element={<UploadData />}></Route>

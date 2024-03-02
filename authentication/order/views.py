@@ -58,9 +58,9 @@ def createOrder(request):
     
     return Response({'message': 'Order Created'}, status=200)
 
-@api_view(['GET'])
-# @authentication_classes([authentication.JWTAuthentication])
-# @permission_classes([IsAuthenticated])
+@api_view(['POST'])
+@authentication_classes([authentication.JWTAuthentication])
+@permission_classes([IsAuthenticated])
 def getOrders(request):
     data = request.data
 

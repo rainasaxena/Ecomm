@@ -79,34 +79,30 @@ def updateCartItem(request):
     data = request.data
     try:
         cart_item = CartItem.objects.get(id=data['cartItem_id'])
-        cart_item.quantity = data['quantity']
+        print(cart_item)
+        try:
+            cart_item.quantity = data['quantity']
+            cart_item.save()
+            return Response({'message': 'Cart item updated sucessfully'}, status=200)
+        except:
+            return Response({'message': 'Cart item not updated try again'}, status=status.HTTP_400_BAD_REQUEST)
     except:
-        return Response({'message': 'Product cart item Not Found'})
-    
-    print(cart_item.quantity)
-    serializer = updateCartItemSerializer(cart_item)
-    sr = updateCartItemSerializer(data=serializer.data)
-    if sr.is_valid():
-        cart_item.save()
-        return Response({'message': 'cartItems Updated'}, status=200)
-    
-    return Response({'message': sr.errors}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'Product cart item Not Found'}, status=status.HTTP_304_NOT_MODIFIED)
 
-@api_view(['DELETE'])
+@api_view(['POST'])
 @authentication_classes([authentication.JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def deleteCartItems(request):
     data = request.data
     try:
         cart_item = CartItem.objects.get(id=data['cartItem_id'])
+        try:
+            cart_item.delete()
+            return Response({"message": 'Item removed sucessfully'}, status=200)
+        except:
+            return Response({'message':'Cart item not deleted try again'}, status=status.HTTP_400_BAD_REQUEST)
     except:
         return Response({'message': 'Product cart item Not Found'})
-    
-    try:
-        cart_item.delete()
-        return Response({"message": 'Item removed sucessfully'}, status=200)
-    except:
-        return Response({'message':'Cart item not deleted try again'}, status=status.HTTP_400_BAD_REQUEST)
         
     
     

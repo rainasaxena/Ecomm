@@ -4,7 +4,6 @@ from products.models import Product
 
 import uuid
 
-# referances ==> https://github.com/justdjango/django-ecommerce/blob/master/core/models.py
 def generate_unique_cart_id():
     return str(uuid.uuid4())
 
@@ -28,6 +27,8 @@ class Cart(models.Model):
 
 
 class CartItem(models.Model):
+    id = models.CharField(primary_key=True, unique=True, default=generate_unique_cart_id)
+    cart_item_id = models.CharField(max_length=50, unique=True, default=generate_unique_cart_id)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)

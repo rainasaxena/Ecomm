@@ -14,8 +14,8 @@ const CategoryProducts = () => {
     useContext(ProductContext);
   const [categoryObjectData, setCategoryObjectData] = useState(null);
 
-  const [ setIsLoading] = useState(false);
-  const [setIsError] = useState(false);
+  const [loading, setIsLoading] = useState(false);
+  const [error, setIsError] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);

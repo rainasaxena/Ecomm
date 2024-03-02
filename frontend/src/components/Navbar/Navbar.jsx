@@ -27,7 +27,7 @@ const Navbar = () => {
   };
 
   const handleOrderClick = () => {
-    navigate("/cart");
+    navigate("/orders");
   };
 
   const handleWishlistClick = () => {

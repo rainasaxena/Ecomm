@@ -1,6 +1,6 @@
 import { CartContext } from "./cartContext";
 import { UserAuthContext } from "../userAuth/userAuthContext";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { checkTokenValidity } from "../../utils/authUtils";
 
@@ -76,9 +76,13 @@ export const CartContextProvider = ({ children }) => {
     try {
       const isValid = await checkTokenValidity();
       if (isValid) {
+        console.log(
+          "Removing item from cart: ",
+          `${process.env.REACT_APP_BACKEND_SERVER}/cart/remove/`
+        );
         const url = `${process.env.REACT_APP_BACKEND_SERVER}/cart/remove/`;
         const res = await fetch(url, {
-          method: "DELETE",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${authTokens.access}`,
@@ -89,7 +93,6 @@ export const CartContextProvider = ({ children }) => {
 
         if (res.ok) {
           fetchCartData();
-          console.log("Item removed from cart");
         }
       }
     } catch (e) {
@@ -127,6 +130,12 @@ export const CartContextProvider = ({ children }) => {
       throw new Error("Tokens are not valid");
     }
   };
+
+  useEffect(() => {
+    if (userObject?.username && userObject?.email) {
+      fetchCartData();
+    }
+  }, [userObject?.username, userObject?.email]);
 
   const cartTotal = cartData.reduce((total, cartItem) => {
     const productPrice = parseFloat(cartItem.product.prod_price);

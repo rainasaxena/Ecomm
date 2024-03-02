@@ -21,14 +21,14 @@ const PaymentStatusPage = () => {
   const pollStatus = async (merchantId, transactionId) => {
     const st =
       `/pg/v1/status/${merchantId}/${transactionId}` +
-      "099eb0cd-02cf-4e2a-8aca-3e6c6aff0399";
+      process.env.REACT_APP_SALT_ID;
     const dataSha256 = sha256(st);
 
     const checksum = dataSha256 + "###" + "1";
 
     try {
       const response = await axios.get(
-        `https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/status/${merchantId}/${transactionId}`,
+        `${process.env.REACT_APP_PHONEPE_STATUS_URL}/${merchantId}/${transactionId}`,
         {
           headers: {
             accept: "application/json",
@@ -64,19 +64,17 @@ const PaymentStatusPage = () => {
           });
 
           if (res.status === 200) {
-            navigate("/");
+            navigate("/orders");
           } else {
-            navigate('/cart')
+            navigate("/");
           }
         } catch (err) {
           console.log(err);
         }
-
       } else if (status == "PAYMENT_ERROR") {
         setStatus(status);
         setStatusMessage(response.data.message);
         navigate("/cart");
-        console.log("Payment Failed");
       }
     } catch (error) {
       console.error("Error polling status:", error);

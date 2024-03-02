@@ -3,8 +3,8 @@ import { ChevronDown } from 'lucide-react';
 
 const DropdownContainer = ({ labelText, selectedValue, onSelectChange, options }) => {
   return (
-    <div className="relative mx-8 my-4">
-      <label className="block text-gray-700 text-sm md:text-base font-bold mb-1">
+    <div className="relative my-3">
+      <label className="block text-left text-gray-700 text-sm md:text-base font-bold mb-1">
         {labelText}
       </label>
       <div className="relative">

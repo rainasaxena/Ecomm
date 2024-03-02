@@ -11,6 +11,7 @@ import { CartContextProvider } from "./context/cart/cartContextProvider";
 import { WishlistContextProvider } from "./context/wishlist/wishlistContextProvider";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar/Navbar";
+import { OrderContextProvider } from "./context/orders/orderContextProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,15 +19,16 @@ root.render(
     <UserAuthContextProvider>
       <CategoryContextProvider>
         <CartContextProvider>
-          <ProductContextProvider>
-            <WishlistContextProvider>
-            <BrowserRouter>
-              <Navbar />
-              <App />
-              {/* <Footer/> */}
-            </BrowserRouter>
-            </WishlistContextProvider>
-          </ProductContextProvider>
+          <OrderContextProvider>
+            <ProductContextProvider>
+              <WishlistContextProvider>
+                <BrowserRouter>
+                  <Navbar />
+                  <App />
+                </BrowserRouter>
+              </WishlistContextProvider>
+            </ProductContextProvider>
+          </OrderContextProvider>
         </CartContextProvider>
       </CategoryContextProvider>
     </UserAuthContextProvider>

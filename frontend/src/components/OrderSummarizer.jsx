@@ -40,7 +40,7 @@ const OrderSummarizer = () => {
             // selectedValue={addressType}
             // onSelectChange={setAddressType}
             // options=userObject.address.map((addr) => {return})
-
+            options={userObject.address.map((addr) => {return addr.address_line1})}
           />
         </div>
       </form>
