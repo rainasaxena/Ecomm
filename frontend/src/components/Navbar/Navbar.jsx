@@ -4,7 +4,7 @@ import { Heart, Menu, ShoppingCartIcon, X } from "lucide-react";
 import { CategoryContext } from "../../context/category/categoryContext";
 import { UserAuthContext } from "../../context/userAuth/userAuthContext";
 import { logOutUser } from "../../utils/authUtils";
-import Dropdown from "../Profile Dropdown/Dropdown";
+import Dropdown from "../ProfileDropdown/Dropdown";
 import Button from "../Button";
 
 const Navbar = () => {

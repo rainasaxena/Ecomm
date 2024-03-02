@@ -5,18 +5,17 @@ import Container from "../../components/Container";
 import { CategoryContext } from "../../context/category/categoryContext";
 import { useParams } from "react-router-dom";
 import { ProductContext } from "../../context/products/productContext";
-import Test from "../Test";
 import Loader from "../../components/Loader/Loader";
 
 const CategoryProducts = () => {
   const { cat_id } = useParams();
   const { categoryData } = useContext(CategoryContext);
-  const { productData, setProductData, fetchProductData, isProductLoading } =
+  const { productData, fetchProductData, isProductLoading } =
     useContext(ProductContext);
   const [categoryObjectData, setCategoryObjectData] = useState(null);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [ setIsLoading] = useState(false);
+  const [setIsError] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);

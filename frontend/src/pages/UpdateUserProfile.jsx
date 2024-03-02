@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { fetchData, updateUserProfile } from "../utils/authUtils";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
-import DropdownContainer from "../components/Profile Dropdown/DropdownContainer";
+import DropdownContainer from "../components/ProfileDropdown/DropdownContainer";
 
 const UpdateUserProfile = () => {
   const navigate = useNavigate();

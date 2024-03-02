@@ -69,7 +69,7 @@ const WishlistCard = ({
       <div className="w-36 md:w-72 m-2 rounded-md overflow-hidden border">
         <div className="p-1">
           <div
-            className="relative"
+            className=""
             //   onClick={() => setIsOpen(true)}
           >
             <img
