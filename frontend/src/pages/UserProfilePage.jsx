@@ -6,6 +6,7 @@ import { Pen } from "lucide-react";
 import { UserAuthContext } from "../context/userAuth/userAuthContext";
 import { useNavigate } from "react-router-dom";
 import UserAddressCard from "../components/Cards/UserAddressCard";
+import Loader from "../components/Loader/Loader";
 
 const UserProfilePage = () => {
   const { userObject, isLoggedIn } = useContext(UserAuthContext);
@@ -13,8 +14,8 @@ const UserProfilePage = () => {
 
   return (
     <Container>
-      {isLoggedIn && (
-        <div className="md:h-screen">
+      {isLoggedIn ? (
+        <div className="md:h-screen h-max mb-4">
           <div className="border-b h-16 md:h-20 flex items-center justify-start">
             <div className="m-auto text-sm md:text-base font-bold">
               Profile Details
@@ -30,21 +31,9 @@ const UserProfilePage = () => {
                   alt=""
                 />
               </div>
-
               <div className="mt-2 mb-2 text-sm md:text-base font-bold">
                 {userObject.first_name} {userObject.last_name}
               </div>
-
-              <Button
-                onClickFunction={() => {
-                  navigate(`/update-profile/${userObject.username}`);
-                }}
-              >
-                <div className="flex gap-2 items-center">
-                  <Pen size={15} />
-                  Edit Profile
-                </div>
-              </Button>
             </div>
 
             <div className="md:flex md:flex-col md:w-full">
@@ -60,17 +49,30 @@ const UserProfilePage = () => {
                 />
               </div>
 
-              <div className="block text-gray-700 text-sm md:text-base font-bold mb-1 ml-8">
-                My addresses
+              <div className="flex items-center justify-between my-4 ml-8 mr-3">
+                <div className="block text-gray-700 text-sm md:text-lg font-semibold">
+                  My addresses
+                </div>
+                <Button onClickFunction={() => navigate("/add-address")}>
+                  Add new address
+                </Button>
               </div>
 
-              <div className="ml-8 sm:mb-6 flex flex-col md:flex md:flex-row gap-2 md:gap-5">
+              <div className="ml-8 sm:mb-6 flex flex-col md:flex md:flex-row md:flex-wrap gap-2 md:gap-5">
                 {userObject?.address?.map((item, index) => (
-                  <UserAddressCard addressObj={item} userObject={userObject} key={index} />
+                  <UserAddressCard
+                    addressObj={item}
+                    userObject={userObject}
+                    key={index}
+                  />
                 ))}
               </div>
             </div>
           </div>
+        </div>
+      ) : (
+        <div className="h-screen flex items-center justify-center">
+          <Loader />
         </div>
       )}
     </Container>

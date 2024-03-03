@@ -15,6 +15,7 @@ import Footer from "./components/Footer";
 import PaymentPage from "./pages/Payment/Payment";
 import PaymentStatusPage from "./pages/Payment/PaymentStatusPage";
 import OrdersPage from "./pages/Orders Page/Orders";
+import NewAddressForm from "./pages/Profile/NewAddressForm";
 
 function App() {
   return (
@@ -43,7 +44,7 @@ function App() {
         <Route exact path="/favourites" element={<Wishlist />}></Route>
         <Route exact path="/payments" element={<Payments />}></Route>
         <Route exact path="/upload-data" element={<UploadData />}></Route>
-        <Route exact path="/payment" element={<PaymentPage />} />
+        <Route exact path="/add-address" element={<NewAddressForm />} />
         <Route
           path="/:merchantId/:transactionId/:addressType"
           element={<PaymentStatusPage />}

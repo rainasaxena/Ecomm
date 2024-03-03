@@ -228,3 +228,36 @@ export const updateUserProfile = async (userObject) => {
     throw new Error("User was not created!");
   }
 };
+
+export const addNewAddress = async (addressPayload) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_SERVER}/add-address/`,
+      {
+        method: "POST",
+        credentials: "same-origin",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(addressPayload),
+      }
+    )
+      .then((_response) => {
+        window.location.href = `/userprofile/${addressPayload?.username}`;
+      })
+      .catch((_error) => {
+        throw new Error("Failed to create user");
+      });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      console.error("Failed to update user details");
+    }
+  } catch (error) {
+    console.error("User details were not updated!");
+    throw new Error("User was not created!");
+  }
+};
