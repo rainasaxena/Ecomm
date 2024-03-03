@@ -65,7 +65,7 @@ const OrdersContainer = ({ orderData }) => {
             ? "Order Delivered"
             : "Arriving Soon"}
         </p>
-        <div className="flex flex-col md:flex-row md:flex-wrap items-center justify-start gap-3 w-full">
+        <div className="flex flex-col items-start md:flex-row md:flex-wrap md:items-center justify-start gap-3 w-full">
           {orderData?.order_items?.map((item, index) => (
             <OrderItamCard orderItem={item} key={index} />
           ))}

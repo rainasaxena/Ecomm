@@ -5,15 +5,18 @@ export const getJWTTokens = async (username, password) => {
   };
 
   try {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/api/token/`, {
-      method: "POST",
-      credentials: "same-origin",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_SERVER}/api/token/`,
+      {
+        method: "POST",
+        credentials: "same-origin",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();
@@ -21,6 +24,7 @@ export const getJWTTokens = async (username, password) => {
       return data;
     } else {
       console.error("Failed to get JWT tokens");
+      return null;
     }
   } catch (error) {
     console.error("Error during token retrieval:", error);
@@ -30,24 +34,25 @@ export const getJWTTokens = async (username, password) => {
 
 export const fetchData = async (username, password) => {
   const data = await getJWTTokens(username, password);
-  // console.log(data)
   return data;
 };
 
 //Function to get username and email
 export const getUserDetails = async (username, email, accessToken) => {
   try {
-    console.log("Get user details acess token:", accessToken);
-    const res = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/get-user-details/`, {
-      method: "POST",
-      credentials: "same-origin",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify({ username: username, email: email }),
-    });
+    const res = await fetch(
+      `${process.env.REACT_APP_BACKEND_SERVER}/get-user-details/`,
+      {
+        method: "POST",
+        credentials: "same-origin",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({ username: username, email: email }),
+      }
+    );
 
     if (res.ok) {
       const userData = await res.json();
@@ -108,24 +113,26 @@ export const checkTokenValidity = async () => {
 
   // verifying token
   try {
-    const res = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/api/token/verify/`, {
-      method: "POST",
-      credentials: "same-origin",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ token: accessToken }),
-    });
+    const res = await fetch(
+      `${process.env.REACT_APP_BACKEND_SERVER}/api/token/verify/`,
+      {
+        method: "POST",
+        credentials: "same-origin",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token: accessToken }),
+      }
+    );
 
     if (res.ok) {
       return true;
     } else {
       const refreshResponse = await fetch(
         `${process.env.REACT_APP_BACKEND_SERVER}/api/token/refresh/`,
-        {
+        { 
           method: "POST",
-          credentials: "same-origin",
           mode: "cors",
           headers: {
             "Content-Type": "application/json",
@@ -135,15 +142,19 @@ export const checkTokenValidity = async () => {
       );
 
       if (refreshResponse.ok) {
-        const data = await res.json();
-        localStorage.setItem("authTokens", JSON.stringify(data));
+        const data = await refreshResponse.json();
+        localStorage.setItem(
+          "authTokens",
+          JSON.stringify({
+            access: data?.access,
+            refresh: refreshToken,
+          })
+        );
+        window.location.reload();
         return true;
       } else {
-        // localStorage.setItem("authTokens", null);
-        // localStorage.setItem("user", null);
         logOutUser();
-        window.location.reload();
-
+        window.location.href = "/login";
         return false;
       }
     }
@@ -162,15 +173,18 @@ export const logOutUser = async () => {
 //Function for signup
 export const registerUser = async (userObject) => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/sign-up/`, {
-      method: "POST",
-      credentials: "same-origin",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userObject),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_SERVER}/sign-up/`,
+      {
+        method: "POST",
+        credentials: "same-origin",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userObject),
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();
@@ -187,15 +201,18 @@ export const registerUser = async (userObject) => {
 //function to update user details
 export const updateUserProfile = async (userObject) => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/update-user-profile/`, {
-      method: "PATCH",
-      credentials: "same-origin",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userObject),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_SERVER}/update-user-profile/`,
+      {
+        method: "PATCH",
+        credentials: "same-origin",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userObject),
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();

@@ -27,7 +27,7 @@ const Wishlist = () => {
             <Loader />
           </div>
         ) : (
-          <div className="h-screen overflow-y-scroll">
+          <div className="h-screen overflow-y-scroll no-scrollbar">
             <div className="flex flex-wrap m-2 justify-evenly md:justify-center gap-2 md:gap-5">
               {wishlistData &&
                 wishlistData.map((item, index) => (

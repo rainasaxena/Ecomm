@@ -18,7 +18,7 @@ const Cart = () => {
 
   return (
     <Container>
-      <main className="md:h-screen">
+      <main className="md:h-max">
         <div className="p-5 text-sm md:text-base font-bold text-center border-b ">
           Your Cart
         </div>
