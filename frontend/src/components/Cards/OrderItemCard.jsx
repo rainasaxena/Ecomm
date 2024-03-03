@@ -14,18 +14,18 @@ const OrderItamCard = ({ orderItem }) => {
       </div>
       <div className="w-full p-2 flex my-2">
         <div className="flex flex-col w-full items-centerc justify-center">
-          <div className="text-base md:text-xl font-bold">
+          <div className="text-sm md:text-xl font-bold">
             {orderItem?.product?.prod_title}
           </div>
           <p class="hidden md:block text-gray-600 text-xs md:text-sm line-clamp-2">
             {orderItem?.product?.prod_desc}
           </p>
           <div className="flex w-full items-start mt-1 md:mt-2 divide-x divide-solid divide-gray-400">
-            <div className="text-gray-600 font-bold text-sm md:text-base">
-              Price:<span className="text-gray-700 font-normal text-sm md:text-base">{` ₹${orderItem?.product?.prod_price * orderItem?.quantity}`}</span>
+            <div className="text-gray-600 font-bold text-xs md:text-base">
+              Price:<span className="text-gray-700 font-normal text-xs md:text-base">{` ₹${orderItem?.product?.prod_price * orderItem?.quantity}`}</span>
             </div>
-            <div className="text-gray-600 font-bold text-sm md:text-base ml-3 pl-3">
-              Quantity:<span className="text-gray-700 font-normal text-sm md:text-base">{` ${orderItem?.quantity}`}</span>
+            <div className="text-gray-600 font-bold text-xs md:text-base ml-3 pl-3">
+              Quantity:<span className="text-gray-700 font-normal text-xs md:text-base">{` ${orderItem?.quantity}`}</span>
             </div>
           </div>
         </div>

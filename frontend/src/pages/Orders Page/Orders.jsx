@@ -15,13 +15,13 @@ const OrdersPage = () => {
     <Container>
       <main className="h-screen flex flex-col divide-y-2">
         <section className="mt-10 mx-3">
-          <h1 className="text-2xl text-gray-700">Your Orders</h1>
+          <h1 className="text-base md:text-2xl text-black font-bold">Your Orders</h1>
         </section>
         {!isOrderLoading ? (
           <section className="h-full overflow-y-auto flex flex-col m-3 mt-0 no-scrollbar">
             {orders.length === 0 ? (
               <div className="flex flex-col justify-center items-center h-full">
-                <h1 className="text-2xl text-gray-700">
+                <h1 className="text-base md:text-2xl text-gray-700">
                   You Have No Orders 🙃
                 </h1>
               </div>

@@ -65,28 +65,30 @@ const Card = ({
       <div className="shadow-md w-36 md:w-72 mb-2 rounded-md overflow-hidden border">
         <div className="p-2">
           <div className="" onClick={() => setIsOpen(true)}>
-            <img
-              className="h-28 md:h-56 w-full rounded-sm object-cover"
-              src={prod_image_url}
-              alt="Card Image"
-            />
-            <div className="absolute top-1 right-1 flex gap-1">
-              <div className="bg-white rounded-full p-1 opacity-80 md:invisible">
-                <Heart
-                  className="visible md:invisible"
-                  size={18}
-                  color="black"
-                  onClick={handleWishClick}
-                />
+            <div className="relative md:static">
+              <div className="absolute top-1 right-1 flex gap-1 md:invisible">
+                <div className="bg-white rounded-full p-1 opacity-80">
+                  <Heart
+                    className="visible md:hidden"
+                    size={18}
+                    color="black"
+                    onClick={handleWishClick}
+                  />
+                </div>
+                <div className="bg-white rounded-full p-1 opacity-80">
+                  <ShoppingCart
+                    className="visible md:hidden"
+                    size={18}
+                    color="black"
+                    onClick={handleCartClick}
+                  />
+                </div>
               </div>
-              <div className="bg-white rounded-full p-1 opacity-80 md:invisible">
-                <ShoppingCart
-                  className="visible md:invisible"
-                  size={18}
-                  color="black"
-                  onClick={handleCartClick}
-                />
-              </div>
+              <img
+                className="h-28 md:h-56 w-full rounded-sm object-cover"
+                src={prod_image_url}
+                alt="Card Image"
+              />
             </div>
           </div>
         </div>
@@ -97,7 +99,7 @@ const Card = ({
             </p>
             <div className="flex gap-2">
               <Heart
-                className="invisible md:visible"
+                className="invisible md:visible cursor-pointer "
                 size={25}
                 onClick={handleWishClick}
               />

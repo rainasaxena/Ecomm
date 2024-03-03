@@ -55,7 +55,7 @@ const OrdersContainer = ({ orderData }) => {
       <div className="flex flex-col flex-1 h-50 rounded-lg p-4 ">
         <p
           className={twMerge(
-            "text-base md:text-xl font-bold",
+            "text-sm md:text-xl font-bold",
             orderData?.order?.delivery_status === "Delivered"
               ? "text-gray-600"
               : "text-green-800"
