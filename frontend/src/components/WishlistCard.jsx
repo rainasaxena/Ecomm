@@ -68,32 +68,32 @@ const WishlistCard = ({
       <Toaster position="top-center" reverseOrder={true} />
       <div className="w-36 md:w-72 m-2 rounded-md overflow-hidden border">
         <div className="p-1">
-          <div
-            className=""
-            //   onClick={() => setIsOpen(true)}
-          >
-            <img
-              className="h-28 md:h-56 w-full rounded-sm object-cover"
-              src={prod_image_url}
-              alt="Wishlist Card Image"
-            />
-            <div className="absolute top-1 right-1 flex gap-1">
-              <div className="bg-white rounded-full p-1 opacity-80 md:invisible">
-                <Trash2Icon
-                  className=" visible md:invisible"
-                  size={18}
-                  color="black"
-                  onClick={handleRemoveFromWishlist}
-                />
+          <div className="">
+            
+            <div className="relative md:static">
+              <div className="absolute top-1 right-1 flex gap-1 md:invisible">
+                <div className="bg-white rounded-full p-1 opacity-80">
+                  <Trash2Icon
+                    className="visible md:hidden"
+                    size={18}
+                    color="black"
+                    onClick={handleRemoveFromWishlist}
+                  />
+                </div>
+                <div className="bg-white rounded-full p-1 opacity-80">
+                  <ShoppingCart
+                    className="visible md:hidden"
+                    size={18}
+                    color="black"
+                    onClick={handleCartClick}
+                  />
+                </div>
               </div>
-              <div className="bg-white rounded-full p-1 opacity-80 md:invisible">
-                <ShoppingCart
-                  className="visible md:invisible"
-                  size={18}
-                  color="black"
-                  onClick={handleCartClick}
-                />
-              </div>
+              <img
+                className="h-28 md:h-56 w-full rounded-sm object-cover"
+                src={prod_image_url}
+                alt="Card Image"
+              />
             </div>
           </div>
         </div>
