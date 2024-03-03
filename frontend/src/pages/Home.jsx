@@ -3,14 +3,16 @@ import Container from "../components/Container";
 import { ProductContext } from "../context/products/productContext";
 import { useEffect } from "react";
 import SwiperGallery from "../components/SwiperGallery/SwiperGallery";
-import {  SwiperSlide } from "swiper/react";
+import { SwiperSlide } from "swiper/react";
 import { checkTokenValidity } from "../utils/authUtils";
 
 const Home = () => {
   const { getFeaturedProducts, featuredProducts } = useContext(ProductContext);
 
   useEffect(() => {
-    checkTokenValidity();
+    if (localStorage.getItem("authTokens")) {
+      checkTokenValidity();
+    }
     getFeaturedProducts();
   }, []);
 

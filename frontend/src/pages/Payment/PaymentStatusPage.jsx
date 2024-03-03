@@ -10,7 +10,7 @@ import { CartContext } from "../../context/cart/cartContext";
 import { UserAuthContext } from "../../context/userAuth/userAuthContext";
 
 const PaymentStatusPage = () => {
-  const { merchantId, transactionId } = useParams();
+  const { merchantId, transactionId, addressType } = useParams();
   const [status, setStatus] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
   const { cartData, fetchCartData, cartTotal, cartId } =
@@ -58,7 +58,9 @@ const PaymentStatusPage = () => {
               payment_date: new Date(),
               payment_status: "success",
               is_paid: true,
-              shipping_address: userObject.address[0],
+              shipping_address: userObject.address.find(
+                (addr) => addr.address_type === addressType
+              ),
               transaction_id: transactionId,
             }),
           });
@@ -92,6 +94,10 @@ const PaymentStatusPage = () => {
       pollStatus(merchantId, transactionId);
     }
   }, [cartData]);
+
+  console.log(
+    userObject?.address?.find((addr) => addr.address_type === addressType)
+  );
 
   return (
     <main className="flex justify-center items-center h-screen">

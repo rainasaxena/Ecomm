@@ -45,7 +45,7 @@ function App() {
         <Route exact path="/upload-data" element={<UploadData />}></Route>
         <Route exact path="/payment" element={<PaymentPage />} />
         <Route
-          path="/:merchantId/:transactionId"
+          path="/:merchantId/:transactionId/:addressType"
           element={<PaymentStatusPage />}
         />
       </Routes>

@@ -43,9 +43,9 @@ const CheckoutCard = () => {
       merchantTransactionId: transactionid,
       merchantUserId: "MUID-" + userObject.id,
       amount: cartTotal,
-      redirectUrl: `http://localhost:3000/${merchantId}/${transactionid}`,
+      redirectUrl: `http://localhost:3000/${merchantId}/${transactionid}/${addressType}`,
       redirectMode: "REDIRECT",
-      callbackUrl: `http://localhost:3000/${merchantId}/${transactionid}`,
+      callbackUrl: `http://localhost:3000/${merchantId}/${transactionid}/${addressType}`,
       mobileNumber: phone,
       paymentInstrument: {
         type: "PAY_PAGE",
@@ -100,7 +100,6 @@ const CheckoutCard = () => {
           <label className="text-left mb-1 mt-2" for="email">
             E-mail
           </label>
-
           {userObject && (
             <input
               className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
