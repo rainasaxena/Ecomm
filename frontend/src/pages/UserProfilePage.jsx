@@ -5,6 +5,7 @@ import InfoContainer from "../components/InfoContainer";
 import { Pen } from "lucide-react";
 import { UserAuthContext } from "../context/userAuth/userAuthContext";
 import { useNavigate } from "react-router-dom";
+import UserAddressCard from "../components/Cards/UserAddressCard";
 
 const UserProfilePage = () => {
   const { userObject, isLoggedIn } = useContext(UserAuthContext);
@@ -64,31 +65,9 @@ const UserProfilePage = () => {
               </div>
 
               <div className="ml-8 sm:mb-6 flex flex-col md:flex md:flex-row gap-2 md:gap-5">
-                <div className="border rounded-lg p-4 text-sm h-48 w-64 md:h-56 md:w-96 md:text-base shadow-md">
-                  <p className="font-bold">
-                    {userObject.address[0].address_type}
-                  </p>
-                  <p>{userObject.address[0].address_line1}</p>
-                  <p>{userObject.address[0].address_line2}</p>
-                  <p>{userObject.address[0].city}</p>
-                  <p>{userObject.address[0].state}</p>
-                  <p>{userObject.address[0].country}</p>
-                  <p>{userObject.address[0].postal_code}</p>
-                  <p>{userObject.user_phone}</p>
-                </div>
-
-                <div className="border rounded-lg p-4 text-sm h-48 w-64 md:h-56 md:w-96 md:text-base shadow-md">
-                  <p className="font-bold">
-                    {userObject.address[1].address_type}
-                  </p>
-                  <p>{userObject.address[1].address_line1}</p>
-                  <p>{userObject.address[1].address_line2}</p>
-                  <p>{userObject.address[1].city}</p>
-                  <p>{userObject.address[1].state}</p>
-                  <p>{userObject.address[1].country}</p>
-                  <p>{userObject.address[1].postal_code}</p>
-                  <p>{userObject.user_phone}</p>
-                </div>
+                {userObject?.address?.map((item, index) => (
+                  <UserAddressCard addressObj={item} userObject={userObject} key={index} />
+                ))}
               </div>
             </div>
           </div>

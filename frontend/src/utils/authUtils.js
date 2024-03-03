@@ -131,7 +131,7 @@ export const checkTokenValidity = async () => {
     } else {
       const refreshResponse = await fetch(
         `${process.env.REACT_APP_BACKEND_SERVER}/api/token/refresh/`,
-        { 
+        {
           method: "POST",
           mode: "cors",
           headers: {
@@ -185,16 +185,13 @@ export const registerUser = async (userObject) => {
         body: JSON.stringify(userObject),
       }
     );
-
     if (response.ok) {
       const data = await response.json();
       return data;
-    } else {
-      console.error("Failed to create user");
     }
   } catch (error) {
     console.error("User was not created!");
-    return null;
+    throw new Error("User was not created!");
   }
 };
 
@@ -212,7 +209,13 @@ export const updateUserProfile = async (userObject) => {
         },
         body: JSON.stringify(userObject),
       }
-    );
+    )
+      .then((_response) => {
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        throw new Error("Failed to create user");
+      });
 
     if (response.ok) {
       const data = await response.json();
@@ -222,6 +225,6 @@ export const updateUserProfile = async (userObject) => {
     }
   } catch (error) {
     console.error("User details were not updated!");
-    return null;
+    throw new Error("User was not created!");
   }
 };

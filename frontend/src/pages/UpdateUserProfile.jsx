@@ -1,60 +1,66 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import { updateUserProfile } from "../utils/authUtils";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import DropdownContainer from "../components/ProfileDropdown/DropdownContainer";
+import { UserAuthContext } from "../context/userAuth/userAuthContext";
 
 const UpdateUserProfile = () => {
   const navigate = useNavigate();
-
+  const { userObject } = useContext(UserAuthContext);
   const [authTokens, setAuthTokens] = useState([]);
   const [userData, setUserData] = useState([]);
+  const [addressType, setAddressType] = useState("Home");
+
+  const [userDetails, setUserDetails] = useState({
+    username: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    user_phone: "",
+    user_gender: "",
+    address_type: addressType,
+    address_line1: "",
+    address_line2: "",
+    city: "",
+    state: "",
+    country: "",
+    postal_code: "",
+  });
 
   //To bring in existing information
   useEffect(() => {
     const storedToken = localStorage.getItem("tokens");
+    const storedUserData = localStorage.getItem("user");
     if (storedToken) {
       setAuthTokens(storedToken);
     }
-
-    const storedUserData = localStorage.getItem("user");
     if (storedUserData) {
-      setUserData(JSON.parse(storedUserData));
+      const data = JSON.parse(storedUserData);
+      setUserData(data);
+      setUserDetails({
+        ...userDetails,
+        username: data.username,
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+      });
     }
   }, []);
 
-  //To add new details
-  const [userDetails, setUserDetails] = useState({
-    username: userData.username,
-    first_name: userData.first_name,
-    last_name: userData.last_name,
-    email: userData.email,
-    user_pfp: null,
-    user_addr: "",
-    user_gender: "",
-  });
-
-  //if input changes/new input done
   const handleInputChange = (e) => {
     setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
   };
 
-  const handleFileInputChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setUserData({ ...userDetails, user_pfp: file }); // Update the user state with the file
-    }
-  };
-
-  //handling the submit
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    await updateUserProfile(userDetails).then((data) => {
-    });
-    // localStorage.setItem("user", JSON.stringify(updatedUserData));
+    try {
+      await updateUserProfile(userDetails);
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const [addressType, setAddressType] = useState("Home");
 
   return (
     <div className="mt-10 text-sm md:text-base flex justify-center items-center] mb-20">
@@ -107,17 +113,16 @@ const UpdateUserProfile = () => {
             id="email"
             value={userData ? userData.email : ""}
           />
-
-          <label className="text-left mb-1 mt-2" for="user_pfp">
-            Profile Picture
+          <label className="text-left mb-1 mt-2" for="email">
+            Phone
           </label>
           <input
             className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
-            name="user_pfp"
-            type="file"
-            id="user_pfp"
-            placeholder="Select a file"
-            onChange={handleFileInputChange}
+            name="user_phone"
+            type="text"
+            id="phone"
+            value={userDetails.user_phone}
+            onChange={handleInputChange}
           />
 
           <label className="text-left mb-1 mt-2" for="user_addr">
@@ -133,52 +138,46 @@ const UpdateUserProfile = () => {
 
           <input
             className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
-            name="user_addr"
+            name="address_line1"
             type="text"
-            id="user_addr"
             placeholder="Address Line 1"
             onChange={handleInputChange}
           />
 
           <input
             className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
-            name="user_addr"
+            name="address_line2"
             type="text"
-            id="user_addr"
             placeholder="Address Line 2"
             onChange={handleInputChange}
           />
 
           <input
             className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
-            name="user_addr"
+            name="city"
             type="text"
-            id="user_addr"
             placeholder="City"
             onChange={handleInputChange}
           />
           <input
             className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
-            name="user_addr"
+            name="state"
             type="text"
-            id="user_addr"
             placeholder="State"
             onChange={handleInputChange}
           />
           <input
             className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
-            name="user_addr"
+            name="postal_code"
             type="text"
-            id="user_addr"
             placeholder="Postal Code"
             onChange={handleInputChange}
           />
 
           <input
             className="p-2 mb-2 border-[1px] border-solid border-[#ddd] rounded-lg "
-            name="user_addr"
+            name="country"
             type="text"
-            id="user_addr"
             placeholder="Country"
             onChange={handleInputChange}
           />

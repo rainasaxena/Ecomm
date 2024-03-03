@@ -1,3 +1,5 @@
+import random
+
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
@@ -20,6 +22,22 @@ headers = {"apiKey": key, "Authorization": f"Bearer {key}"}
 
 # pass in is_async=True to create an async client
 storage_client = create_client(url, headers, is_async=False)
+
+USER_MALE_IMAGES = [
+    "https://cdztpolwphkawmvkmrei.supabase.co/storage/v1/object/public/Images/user_pfp/_1369aebe-5ac2-4a9e-b444-670bbae827cf.jpg",
+    "https://cdztpolwphkawmvkmrei.supabase.co/storage/v1/object/public/Images/user_pfp/_744764ec-4726-41c4-8374-ffedf7fd8676.jpg",
+    "https://cdztpolwphkawmvkmrei.supabase.co/storage/v1/object/public/Images/user_pfp/_9c38f40b-5999-4587-8341-38effcb2d214.jpg",
+    "https://cdztpolwphkawmvkmrei.supabase.co/storage/v1/object/public/Images/user_pfp/_ea9077f6-993e-42f1-a43e-da3fc8b81810.jpg",
+    "https://cdztpolwphkawmvkmrei.supabase.co/storage/v1/object/public/Images/user_pfp/_f5c43535-c172-4c55-906e-a541321b9b55.jpg",
+]
+
+USERS_FEMALE_IMAGES = [
+    "https://cdztpolwphkawmvkmrei.supabase.co/storage/v1/object/public/Images/user_pfp/_080625a1-ff4a-4608-a83b-89a997f5f78f.jpg",
+    "https://cdztpolwphkawmvkmrei.supabase.co/storage/v1/object/public/Images/user_pfp/_1369aebe-5ac2-4a9e-b444-670bbae827cf.jpg",
+    "https://cdztpolwphkawmvkmrei.supabase.co/storage/v1/object/public/Images/user_pfp/_682fbeb1-d416-44ea-bd9b-835d7791b51d.jpg",
+    "https://cdztpolwphkawmvkmrei.supabase.co/storage/v1/object/public/Images/user_pfp/_753724c0-7a4b-48ed-926c-54dc53dd0a41.jpg",
+    "https://cdztpolwphkawmvkmrei.supabase.co/storage/v1/object/public/Images/user_pfp/_ff37aa7c-deb2-4db8-baaf-adf36107268c.jpg",
+]
 
 # Create your views here.
 def home(request):
@@ -83,49 +101,62 @@ def sign_up(request):
 
 @api_view(['PUT', 'PATCH'])
 def update_user_profile(request):
-    
-    username = request.data.get('username', '')
-    userEmail = request.data.get('email', '')
-    first_name = request.data.get('first_name', '')
-    last_name = request.data.get('last_name', '')
-    user_addr = request.data.get('user_addr', '')
-    user_gender = request.data.get('user_gender', '')
-    user_pfp_url = request.data.get('user_pfp_url', '')
-    user_pfp = request.FILES.get('user_pfp')
-    
+    data = request.data
+
     try:
-        user = User.objects.get(username=username, email=userEmail)
+        user = User.objects.get(username=data["username"], email=data["email"])
     except:
         return Response({'message': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
     
     try:
-        user.first_name = first_name
-        user.last_name = last_name
+        user.first_name = data["first_name"]
+        user.last_name = data["last_name"]
         serialize_user_data = UserSerializer(user).data
-        del serialize_user_data['password']
+        print('Done-1')
+        if('password' in serialize_user_data.keys()):
+            del serialize_user_data['password']
+        print('Done-2')
         user.save()
-        
-        print(f'User pfp sent: {user_pfp}')
-        profile_details = userProfile(user=user, user_addr=user_addr, user_gender=user_gender, user_pfp=user_pfp)
-        profile_details.save()
-            
-        try:
-            
-            with open(f'main/images/user_pfp/{user_pfp}', 'rb') as img:
-                storage_client.from_('Images').upload(file=img, path=f'user_pfp/{user_pfp}')
-                
-            image_public_url = storage_client.from_('Images').get_public_url(f'user_pfp/pfp.jpg')
-            profile_details.user_pfp_url = image_public_url
+        print('Done-3')
 
-            serialize_user_profile_data = UserProfileDetailsSerializer(profile_details).data
-            
-            profile_details.save()
-        except:
-            return Response({'message': 'Something went wrong please try again later :('}, status=status.HTTP_404_NOT_FOUND)
-        
-        return Response({'message':'Details Updated sucessfully', 'user':serialize_user_data, 'user_details':serialize_user_profile_data})
-    
-    except:
+        if data["user_gender"] == 'M':
+            image_public_url = random.choice(USER_MALE_IMAGES)
+        elif data["user_gender"] == 'F':
+            image_public_url = random.choice(USERS_FEMALE_IMAGES)
+        else:
+            image_public_url = random.choice(USER_MALE_IMAGES + USERS_FEMALE_IMAGES)
+
+        profile_details = userProfile(
+            user=user, 
+            user_gender=data["user_gender"], 
+            user_phone=data["user_phone"], 
+            user_pfp_url=image_public_url
+        )
+
+        print('Done-4')
+        profile_details.save()
+        serialize_user_profile_data = UserProfileSerializer(profile_details).data
+        print(profile_details)
+
+        try:
+            user_address = UserAddress(
+                user_profile=profile_details,
+                address_type=data['address_type'],
+                address_line1=data['address_line1'],
+                address_line2=data['address_line2'],
+                city=data['city'],
+                state=data['state'],
+                country=data['country'],
+                postal_code=data['postal_code']
+            )
+            user_address.save()
+            return Response({'message':'Details Updated sucessfully', 'user':serialize_user_data, 'user_details':serialize_user_profile_data})
+        except Exception as e:
+            print(e)
+            return Response({'message':'Something went wrong please try again later'}, status=status.HTTP_400_BAD_REQUEST)
+
+    except Exception as e:
+        print(e)
         return Response({'message':'Something went wrong please try again later'}, status=status.HTTP_400_BAD_REQUEST)
 
     

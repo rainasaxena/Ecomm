@@ -29,7 +29,14 @@ const Wishlist = () => {
         ) : (
           <div className="h-screen overflow-y-scroll no-scrollbar">
             <div className="flex flex-wrap m-2 justify-evenly md:justify-center gap-2 md:gap-5">
-              {wishlistData &&
+              {}
+              {wishlistData?.length === 0 ? (
+                <div className="flex flex-col justify-center items-center h-screen">
+                  <h1 className="text-2xl text-gray-700">
+                    Wishlist Is Empty 🙃
+                  </h1>
+                </div>
+              ) : (
                 wishlistData.map((item, index) => (
                   <WishlistCard
                     prod_id={item.prod_id}
@@ -39,7 +46,8 @@ const Wishlist = () => {
                     prod_old_price={item.prod_old_price}
                     prod_desc={item.prod_desc}
                   />
-                ))}
+                ))
+              )}
             </div>
           </div>
         )}
