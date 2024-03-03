@@ -1,18 +1,11 @@
 import React, { useContext } from "react";
-import Button from "../components/Button";
-import CodRadioCheck from "../components/Buttons/CODRadioCheck";
 import CheckoutCard from "../components/Cards/CheckoutCard";
-import Container from "../components/Container";
-import { ArrowBigLeft } from "lucide-react";
-import { UserAuthContext } from "../context/userAuth/userAuthContext";
-import { useNavigate } from "react-router-dom";
-import { CartContext } from "../context/cart/cartContext";
+import Container from "../components/Container";import { CartContext } from "../context/cart/cartContext";
 
 import CartItamCard from "../components/Cards/CartItamCard";
 
 const Payments = () => {
   const { cartData, cartTotal } = useContext(CartContext);
-  console.log(cartData);
   return (
     <Container>
       <main className="md:h-screen">

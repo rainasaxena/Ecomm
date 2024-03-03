@@ -60,7 +60,6 @@ export const CartContextProvider = ({ children }) => {
 
         if (res.ok) {
           fetchCartData();
-          console.log("Items added to cart");
         } else {
           throw new Error("Not able to add item in cart");
         }
@@ -76,10 +75,6 @@ export const CartContextProvider = ({ children }) => {
     try {
       const isValid = await checkTokenValidity();
       if (isValid) {
-        console.log(
-          "Removing item from cart: ",
-          `${process.env.REACT_APP_BACKEND_SERVER}/cart/remove/`
-        );
         const url = `${process.env.REACT_APP_BACKEND_SERVER}/cart/remove/`;
         const res = await fetch(url, {
           method: "POST",
@@ -117,13 +112,11 @@ export const CartContextProvider = ({ children }) => {
 
         if (res.ok) {
           fetchCartData();
-          console.log("Cart Updated");
           return true;
         } else {
           return false;
         }
       } catch (e) {
-        console.log("Error in updating cart");
         return false;
       }
     } else {

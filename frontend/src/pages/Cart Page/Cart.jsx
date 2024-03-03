@@ -28,11 +28,11 @@ const Cart = () => {
               <>
                 <div className="md:h-[44rem] m-2 p-3 md:m-5 flex flex-col md:w-3/4 rounded-lg">
                   <div className="text-gray-600 md:text-2xl">All Products</div>
-                  <div className="flex flex-col overflow-y-scroll">
+                  <div className="flex flex-col overflow-y-scroll no-scrollbar">
                     {cartData.length === 0 ? (
                       <div className="flex justify-center items-center overflow-hidden h-[40rem]">
                         <div className="text-gray-600 md:text-2xl mt-5">
-                          No products in cart
+                          No products in cart 🫠
                         </div>
                       </div>
                     ) : (

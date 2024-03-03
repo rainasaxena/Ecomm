@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { fetchData, updateUserProfile } from "../utils/authUtils";
+import { updateUserProfile } from "../utils/authUtils";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import DropdownContainer from "../components/ProfileDropdown/DropdownContainer";
@@ -51,7 +51,6 @@ const UpdateUserProfile = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     await updateUserProfile(userDetails).then((data) => {
-      console.log(data);
     });
     // localStorage.setItem("user", JSON.stringify(updatedUserData));
   };

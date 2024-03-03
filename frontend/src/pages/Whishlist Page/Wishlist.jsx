@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { WishlistContext } from "../../context/wishlist/wishlistContext";
 import { ProductContext } from "../../context/products/productContext";
-import { UserAuthContext } from "../../context/userAuth/userAuthContext";
 import Loader from "../../components/Loader/Loader";
 import WishlistCard from "../../components/WishlistCard";
 import Container from "../../components/Container";
@@ -16,8 +15,6 @@ const Wishlist = () => {
   useEffect(() => {
     fetchWishlistData(userDetails.username, userDetails.email);
   }, []);
-
-  console.log(wishlistData);
 
   return (
     <Container>

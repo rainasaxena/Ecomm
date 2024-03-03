@@ -82,7 +82,6 @@ const CheckoutCard = () => {
             },
           }
         );
-        console.log("RESPONSE: ", response);
         const redirectUrl =
           response.data.data.instrumentResponse.redirectInfo.url;
         window.location.href = redirectUrl;

@@ -4,7 +4,6 @@ import { twMerge } from "tailwind-merge";
 import OrderItamCard from "../../components/Cards/OrderItemCard";
 
 const OrdersContainer = ({ orderData }) => {
-  console.log(orderData);
   return (
     <div className="flex flex-col h-max border-2 border-solid border-gray-300 rounded-lg mt-4">
       <div className="flex flex-col md:flex-row flex-1 bg-gray-100 h-10 rounded-lg rounded-b-none p-4 divide-y-2 divide-gray-300 md:divide-y-0">

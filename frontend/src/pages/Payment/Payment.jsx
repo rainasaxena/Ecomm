@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import sha256 from "crypto-js/sha256";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { CartContext } from "../../context/cart/cartContext";
 
 const PaymentPage = () => {
   const navigate = useNavigate();

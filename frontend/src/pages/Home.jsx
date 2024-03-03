@@ -2,9 +2,8 @@ import React, { useContext } from "react";
 import Container from "../components/Container";
 import { ProductContext } from "../context/products/productContext";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import SwiperGallery from "../components/SwiperGallery/SwiperGallery";
-import { Swiper, SwiperSlide } from "swiper/react";
+import {  SwiperSlide } from "swiper/react";
 
 const Home = () => {
   const { getFeaturedProducts, featuredProducts } = useContext(ProductContext);

@@ -23,13 +23,10 @@ const Signup = () => {
     setErrors(false);
     try {
       await registerUser(user).then(async (userData) => {
-        console.log(userData);
         await fetchData(userData.user.username, user.password).then(
           (tokens) => {
             localStorage.setItem("user", JSON.stringify(userData.user));
             localStorage.setItem("authTokens", JSON.stringify(tokens));
-            console.log("Items Saved!");
-
             //Save token
             //Redirect to update user profile page
             navigate(`/update-profile/${userData.user.username}`);

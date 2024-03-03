@@ -10,9 +10,6 @@ const UserProfilePage = () => {
   const { userObject, isLoggedIn } = useContext(UserAuthContext);
   const navigate = useNavigate();
 
-  // console.log(isLoggedIn);
-  console.log(userObject);
-
   return (
     <Container>
       {isLoggedIn && (

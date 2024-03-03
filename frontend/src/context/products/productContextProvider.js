@@ -10,9 +10,6 @@ export const ProductContextProvider = ({ children }) => {
     setIsProductLoading(true);
     try {
       const url = `${process.env.REACT_APP_BACKEND_SERVER}/get-products/`;
-
-      console.log(catId);
-
       const response = await fetch(url, {
         method: "POST",
         mode: "cors",

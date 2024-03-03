@@ -35,11 +35,9 @@ export const WishlistContextProvider = ({ children }) => {
             const data = await res.json();
             setWishlistData(data.cartData.products);
             setIsLoading(false);
-            console.log("Wishlist Data: ", data.cartData);
           }
         }
       } catch (e) {
-        console.log(e);
         setIsLoading(false);
       }
     }
@@ -62,7 +60,6 @@ export const WishlistContextProvider = ({ children }) => {
 
         if (res.ok) {
           fetchWishlistData(username, email);
-          console.log("Items added to wishlist");
         } else {
           throw new Error("Not able to add item in wishlist");
         }

@@ -30,7 +30,6 @@ const CartCard = ({ cartItem }) => {
     setQuantity(quantity + 1);
   };
 
-  console.log(cartItem);
   return (
     <div className="m-2 bg-white border md:h-28 shadow-lg rounded-md flex gap-4 relative">
       <div className="flex flex-1 flex-col justify-center items-center h-full">

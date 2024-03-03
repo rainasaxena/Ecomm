@@ -23,7 +23,6 @@ const UploadData = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(authTokens.access);
     
 
     fetch('http://127.0.0.1:8000/create-product/', {
@@ -36,7 +35,6 @@ const UploadData = () => {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data); 
     })
     .catch(error => {
       console.error('Error:', error);

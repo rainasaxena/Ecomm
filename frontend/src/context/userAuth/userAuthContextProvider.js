@@ -16,7 +16,6 @@ export const UserAuthContextProvider = ({children}) => {
             const isValid = await checkTokenValidity();
             if(isValid){
                 const data = await getUserDetails(userDetails.username, userDetails.email, authTokens.access);
-                console.log("provider data:",data);
                 setUserObject(data);
                 setIsLoggedIn(true);
             } else{
@@ -28,7 +27,6 @@ export const UserAuthContextProvider = ({children}) => {
             setAuthTokens(authTokens);
             setUserObject(userDetails);
             getUserObj();
-            console.log("updated User data", userObject)
         }
 
     },[]);

@@ -22,8 +22,6 @@ const OrderSummarizer = () => {
     }
   }, [cartTotal]);
 
-  console.log(userObject)
-
   return (
     <div className="m-2 p-5  bg-white border shadow-lg rounded-md flex flex-col justify-center">
       
