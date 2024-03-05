@@ -26,7 +26,7 @@ def createOrder(request):
     
     try:
         address = UserAddress.objects.get(user_profile=user_profile, address_type=data['shipping_address']['address_type'])
-        print(address)
+        
     except:
         return Response({'message': 'Address Does not exist'}, status=404)
     
@@ -53,7 +53,7 @@ def createOrder(request):
         user.cart.products.clear()
 
     except Exception as e:
-        print(e)
+        
         return Response({'message': 'Error in Creating Order'}, status=400)
     
     return Response({'message': 'Order Created'}, status=200)

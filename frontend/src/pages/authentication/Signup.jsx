@@ -48,7 +48,7 @@ const Signup = () => {
           <Loader className="h-8 w-8" />
         ) : (
           <form className="flex flex-col" onSubmit={handleSubmit}>
-            <label className="text-left mb-1 mt-2" for="username">
+            <label className="text-left mb-1 mt-2" htmlFor="username">
               Username
             </label>
             <input
@@ -63,7 +63,7 @@ const Signup = () => {
               }}
             />
 
-            <label className="text-left mb-1 mt-2" for="first_name">
+            <label className="text-left mb-1 mt-2" htmlFor="first_name">
               First Name
             </label>
             <input
@@ -78,7 +78,7 @@ const Signup = () => {
               }}
             />
 
-            <label className="text-left mb-1 mt-2" for="first_name">
+            <label className="text-left mb-1 mt-2" htmlFor="first_name">
               Last Name
             </label>
             <input
@@ -93,7 +93,7 @@ const Signup = () => {
               }}
             />
 
-            <label className="text-left mb-1 mt-2" for="email">
+            <label className="text-left mb-1 mt-2" htmlFor="email">
               Email
             </label>
             <input
@@ -108,7 +108,7 @@ const Signup = () => {
               }}
             />
 
-            <label className="text-left mb-1 mt-2" for="password">
+            <label className="text-left mb-1 mt-2" htmlFor="password">
               New Password
             </label>
             <input

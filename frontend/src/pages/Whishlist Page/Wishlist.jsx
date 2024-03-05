@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import { WishlistContext } from "../../context/wishlist/wishlistContext";
-import { ProductContext } from "../../context/products/productContext";
 import Loader from "../../components/Loader/Loader";
 import WishlistCard from "../../components/WishlistCard";
 import Container from "../../components/Container";
@@ -8,8 +7,6 @@ import Container from "../../components/Container";
 const Wishlist = () => {
   const { wishlistData, fetchWishlistData, isLoading } =
     useContext(WishlistContext);
-  const { productData, setProductData, fetchProductData } =
-    useContext(ProductContext);
   const userDetails = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
@@ -39,6 +36,7 @@ const Wishlist = () => {
               ) : (
                 wishlistData.map((item, index) => (
                   <WishlistCard
+                    key={index}
                     prod_id={item.prod_id}
                     prod_image_url={item.prod_image_url}
                     prod_title={item.prod_title}

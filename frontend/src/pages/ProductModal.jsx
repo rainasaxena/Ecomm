@@ -6,7 +6,7 @@ import { Heart, ShoppingCart } from "lucide-react";
 import { WishlistContext } from "../context/wishlist/wishlistContext";
 import { CartContext } from "../context/cart/cartContext";
 import { UserAuthContext } from "../context/userAuth/userAuthContext";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const ProductModal = ({ isOpen, onClose, prod_id }) => {
   const { productData } = useContext(ProductContext);

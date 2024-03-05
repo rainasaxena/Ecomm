@@ -25,7 +25,7 @@ storage_client = create_client(url, headers, is_async=False)
 @api_view(['POST'])
 def create_product(request):
     posted_data = request.data
-    print(posted_data["cat_id"])
+    
     
     # check for category
     try:
@@ -37,28 +37,28 @@ def create_product(request):
         new_product = Product(category=category, prod_title=posted_data['prod_title'], prod_desc=posted_data['prod_desc'], prod_image_file=request.FILES.get('prod_image_file'), prod_price=int(posted_data['prod_price']), prod_old_price=int(posted_data['prod_old_price']), prod_specs=posted_data['prod_specs']) #, prod_instock=bool(posted_data['prod_instock']), prod_date_added=datetime.datetime.strptime(posted_data['prod_date_added'], '%d/%m/%Y').date(), prod_date_updated=datetime.datetime.strptime(posted_data['prod_date_updated'], '%d/%m/%Y').date())
         serialized_product =  ProductSerializer(new_product)
         try:
-            print(serialized_product.data)
+            
             # if ProductSerializer(data=serialized_product.data).is_valid():
                 
                 # saving image to db
             prod_image = request.FILES.get('prod_image_file')
-            print(prod_image)
+            
             new_product.save()
                 
             try:
-                print("hello1")                    
+                               
                 with open(f'images/prod_image/{prod_image}', 'rb') as img:
-                    print("hello2")                    
+                                      
                     storage_client.from_('Images').upload(file=img, path=f'product_images/{category.cat_title}/{prod_image}')
-                    print("hello3")                    
+                    
                         
                 image_public_url = storage_client.from_('Images').get_public_url(f'product_images/{category.cat_title}/{prod_image}')   
-                print("hello4")                    
+                                 
             except:
                 return Response({'message': 'Error In saving image '}, status=status.HTTP_400_BAD_REQUEST)
                 
             new_product.prod_image_url = image_public_url
-            print(image_public_url)
+
             new_product.save(update_fields=['prod_image_url'])
             return Response({'message': 'data recived'})
             # else:

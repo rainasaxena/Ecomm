@@ -37,7 +37,6 @@ def create_categories(request):
     
     try:
         category=Category(cat_title=cat_title, cat_image_file=cat_image, cat_image_url=cat_image_url)
-        print('Cat object Created')
         cat_id = category.cat_id
         category.save()
 

@@ -1,10 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import {
-  fetchData,
-  getJWTTokens,
-  getUserDetails,
-  userLogIn,
-} from "../../utils/authUtils";
+import React, { useState, useContext } from "react";
+import { getJWTTokens, getUserDetails, userLogIn } from "../../utils/authUtils";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import { UserAuthContext } from "../../context/userAuth/userAuthContext";
@@ -16,14 +11,12 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // const [authTokens, setAuthTokens] = useState({});
-  const [userData, setUserData] = useState(undefined);
+
   const {
-    userObject,
     setUserObject,
-    authTokens,
+
     setAuthTokens,
-    isLoggedIn,
+
     setIsLoggedIn,
   } = useContext(UserAuthContext);
 
@@ -65,11 +58,11 @@ const Login = () => {
           <h2 className="text-black mb-5 font-bold">Login to your account</h2>
           {isLoading ? (
             <div className="flex justify-center items-center h-min">
-              <Loader className='h-8 w-8'/>
+              <Loader className="h-8 w-8" />
             </div>
           ) : (
             <form className="flex flex-col" onSubmit={handleSubmit}>
-              <label className="text-left mb-1 mt-2" for="username">
+              <label className="text-left mb-1 mt-2" htmlFor="username">
                 Username
               </label>
               <input
@@ -82,7 +75,7 @@ const Login = () => {
                 onChange={(e) => setUsername(e.target.value)}
               />
 
-              <label className="text-left mb-1 mt-2" for="password">
+              <label className="text-left mb-1 mt-2" htmlFor="password">
                 Password
               </label>
               <input
@@ -97,7 +90,9 @@ const Login = () => {
 
               <Button type="submit">Login</Button>
               {isError && (
-                <p className="text-red-500 mt-2">Invalid username or password</p>
+                <p className="text-red-500 mt-2">
+                  Invalid username or password
+                </p>
               )}
               <div className="mt-3">
                 Don't have an account?

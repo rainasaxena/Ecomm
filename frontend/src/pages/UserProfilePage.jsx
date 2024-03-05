@@ -1,8 +1,7 @@
-import { React, useContext, useState } from "react";
+import { React, useContext} from "react";
 import Container from "../components/Container";
 import Button from "../components/Button";
 import InfoContainer from "../components/InfoContainer";
-import { Pen } from "lucide-react";
 import { UserAuthContext } from "../context/userAuth/userAuthContext";
 import { useNavigate } from "react-router-dom";
 import UserAddressCard from "../components/Cards/UserAddressCard";
@@ -15,7 +14,7 @@ const UserProfilePage = () => {
   return (
     <Container>
       {isLoggedIn ? (
-        <div className="md:h-screen h-max mb-4">
+        <div className="md:h-full h-max mb-4">
           <div className="border-b h-16 md:h-20 flex items-center justify-start">
             <div className="m-auto text-sm md:text-base font-bold">
               Profile Details

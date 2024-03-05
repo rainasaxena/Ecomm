@@ -97,7 +97,7 @@ const CheckoutCard = () => {
       <div className=" w-50 md:w-96 h-50 md:h-90 p-5 rounded-xl bg-white border text-center ">
         <h2 className="text-black mb-5 font-bold">Enter your details</h2>
         <form className="flex flex-col">
-          <label className="text-left mb-1 mt-2" for="email">
+          <label className="text-left mb-1 mt-2" htmlFor="email">
             E-mail
           </label>
           {userObject && (
@@ -113,7 +113,7 @@ const CheckoutCard = () => {
 
           {/* <CodRadioCheck /> */}
 
-          <label className="text-left mb-1 mt-2" for="email">
+          <label className="text-left mb-1 mt-2" htmlFor="email">
             User Name
           </label>
           <input
@@ -126,7 +126,7 @@ const CheckoutCard = () => {
             readOnly
             disabled
           />
-          <label className="text-left mb-1 mt-2" for="email">
+          <label className="text-left mb-1 mt-2" htmlFor="email">
             Phone
           </label>
           <input

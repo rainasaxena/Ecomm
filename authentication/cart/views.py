@@ -52,7 +52,7 @@ def getUserCart(request):
     
     try:
         user = User.objects.get(username=data['username'], email=data['email'])
-        print(f'Cart Exist: {Cart.objects.filter(user=user).exists()}')
+        
     except:
         return Response({'message': 'User Does not exist'}, status=404)
     
@@ -64,7 +64,7 @@ def getUserCart(request):
 
             return Response({'message': 'Data fetching sucessfull', 'cartData': serializer.data, 'cart_id': cart.cart_id}, status=200)
         else:
-            print('Creating cart for user')
+            
             cart = Cart.objects.create(user=user)
             return Response({'message': 'Data fetching sucessfull', 'cartData': []}, status=200)
     
@@ -79,7 +79,7 @@ def updateCartItem(request):
     data = request.data
     try:
         cart_item = CartItem.objects.get(id=data['cartItem_id'])
-        print(cart_item)
+        
         try:
             cart_item.quantity = data['quantity']
             cart_item.save()

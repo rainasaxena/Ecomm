@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Trash } from "lucide-react";
-import { CartContext } from "../../context/cart/cartContext";
+import React from "react";
+
 
 const OrderItamCard = ({ orderItem }) => {
   return (
@@ -17,7 +16,7 @@ const OrderItamCard = ({ orderItem }) => {
           <div className="text-sm md:text-xl font-bold">
             {orderItem?.product?.prod_title}
           </div>
-          <p class="hidden md:block text-gray-600 text-xs md:text-sm line-clamp-2">
+          <p className="hidden md:block text-gray-600 text-xs md:text-sm line-clamp-2">
             {orderItem?.product?.prod_desc}
           </p>
           <div className="flex w-full items-start mt-1 md:mt-2 divide-x divide-solid divide-gray-400">

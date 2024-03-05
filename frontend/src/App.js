@@ -12,7 +12,6 @@ import Cart from "./pages/Cart Page/Cart";
 import Wishlist from "./pages/Whishlist Page/Wishlist";
 import UploadData from "./UploadData";
 import Footer from "./components/Footer";
-import PaymentPage from "./pages/Payment/Payment";
 import PaymentStatusPage from "./pages/Payment/PaymentStatusPage";
 import OrdersPage from "./pages/Orders Page/Orders";
 import NewAddressForm from "./pages/Profile/NewAddressForm";

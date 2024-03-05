@@ -1,16 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
-import { addNewAddress, updateUserProfile } from "../../utils/authUtils";
+import { addNewAddress } from "../../utils/authUtils";
 import Button from "../../components/Button";
 import DropdownContainer from "../../components/ProfileDropdown/DropdownContainer";
-import { UserAuthContext } from "../../context/userAuth/userAuthContext";
 
 const NewAddressForm = () => {
-  const navigate = useNavigate();
-  const { userObject } = useContext(UserAuthContext);
-  const [authTokens, setAuthTokens] = useState([]);
   const [userData, setUserData] = useState([]);
   const [addressType, setAddressType] = useState("Home");
 
@@ -32,13 +26,16 @@ const NewAddressForm = () => {
     if (storedUserData) {
       const data = JSON.parse(storedUserData);
       setUserData(data);
-      setAddressPayload({
-        ...addressPayload,
-        username: data.username,
-        email: data.email,
-      });
     }
   }, []);
+
+  useEffect(() => {
+    setAddressPayload({
+      ...addressPayload,
+      email: userData.email,
+      username: userData.username,
+    });
+  }, [userData]);
 
   const handleInputChange = (e) => {
     setAddressPayload({ ...addressPayload, [e.target.name]: e.target.value });

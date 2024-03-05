@@ -27,7 +27,7 @@ const CategoryProducts = () => {
         setCategoryObjectData(categoryObject);
       }
       fetchProductData(cat_id);
-    } catch (error) {
+    } catch (_error) {
       setIsError(true);
     }
     setIsLoading(false);
@@ -48,7 +48,7 @@ const CategoryProducts = () => {
                 {productData &&
                   !isProductLoading &&
                   productData.map((item, index) => (
-                    <Card
+                    <Card key={index}
                       prod_id={item.prod_id}
                       prod_image_url={item.prod_image_url}
                       prod_title={item.prod_title}
