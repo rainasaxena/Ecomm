@@ -38,7 +38,6 @@ Integrated PhonePe API for secure payment transactions.
 <!-- ABOUT THE PROJECT -->
 <div style="height:400px; width:600px; display:flex; gap:20px; align-items:center; justify-content:center;">
     <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/67395449-4f83-4872-b916-39ac3b5ce442" />
-    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/833c6e67-2247-4371-96ec-a23f36389a18" />
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -63,10 +62,16 @@ Integrated PhonePe API for secure payment transactions.
 <!-- USAGE EXAMPLES -->
 ##  Screenshots & Demo
 
-<div style="display: flex; flex-direction: row;">
+<div style="display: flex; flex-direction: row; gap:10px;>
     <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/dc760a22-b72e-42d3-b9c6-0841607c41bb" width="500" />
-    <img src="images/git-hooks.webp" width="250" />
-    <img src="images/python-tab.webp" width="250" />
+    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/404f0563-00fe-453a-a53b-3068380d38b9" width="500" />
+    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/549bc066-dc72-4e15-b19e-ba366dc07401" width="500"/>
+    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/b163f299-aaa1-4925-a812-6c41912c0bef" width="500" />
+    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/294a27ba-5fe9-4edc-99be-6af425b34483" width="500" />
+    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/c5197433-c697-40d0-be12-c586f52c8457" width="500" />
+    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/fd60f513-b487-4f16-922d-e29e261a635d" width="500" />
+    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/2d7d7339-a393-458e-ac50-0fedc19dbfcb" width="500" />
+    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/73b9807e-1132-4ed2-ad55-262486438bb7" width="500" />
 </div>
 
 
@@ -80,22 +85,22 @@ _For more examples, please refer to the [Documentation](https://documenter.getpo
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Landing Page
-- [ ] Categories of Jewellery
-- [ ] Login/Signup
-- [ ] Cart
-    - [ ] Modify Cart
-    - [ ] Add Details
-    - [ ] Checkout
-    - [ ] Pay using PhonePe Gateway
-    - [ ] Get redirected to the website after payment
-- [ ] Wishlist
-- [ ] User Profile
-    - [ ] Update User Profile
-    - [ ] My Orders
-        - [ ] Order History and other details
-    - [ ] My Wishlist
-    - [ ] Logout
+- Landing Page
+- Categories of Jewellery
+- Login/Signup
+- Cart
+    - Modify Cart
+    - Add Details
+    - Checkout
+    - Pay using PhonePe Gateway
+    - Get redirected to the website after payment
+- Wishlist
+- User Profile
+    - Update User Profile
+    - My Orders
+        - Order History and other details
+    - My Wishlist
+    - Logout
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
