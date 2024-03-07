@@ -38,7 +38,9 @@ Integrated PhonePe API for secure payment transactions.
 <!-- ABOUT THE PROJECT -->
 //main screenshot
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<div style="height:400px; width:600px; align-items:center; justify-content:center;">
+    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/67395449-4f83-4872-b916-39ac3b5ce442" />
+</div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
