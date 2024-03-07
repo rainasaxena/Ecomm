@@ -77,12 +77,12 @@ Integrated PhonePe API for secure payment transactions.
 
 #### Mobile
 <div style="display: flex; flex-direction: row; gap:10px;>
-    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/e8a9ae8d-a879-4b44-a51b-abe26cf18441" width="500" />
-    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/f6406496-1100-4e08-a4ed-b614ea503213" width="500" />
-    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/d7cf421d-cb7d-48bc-a59c-00f7bcc067d0" width="500"/>
-    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/248bda76-3a24-42b3-b13e-4734cf19c4b7" width="500" />
-    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/60b7c1d1-d81d-4968-9822-9bb2924c6b40" width="500" />
-    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/5cc8d1cd-c57c-4793-b3e1-4e220f32837a" width="500" />
+    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/e8a9ae8d-a879-4b44-a51b-abe26cf18441" width="250" />
+    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/f6406496-1100-4e08-a4ed-b614ea503213" width="250" />
+    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/d7cf421d-cb7d-48bc-a59c-00f7bcc067d0" width="250"/>
+    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/248bda76-3a24-42b3-b13e-4734cf19c4b7" width="250" />
+    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/60b7c1d1-d81d-4968-9822-9bb2924c6b40" width="250" />
+    <img src="https://github.com/rainasaxena/Ecomm/assets/100672165/5cc8d1cd-c57c-4793-b3e1-4e220f32837a" width="250" />
 </div>
 
 
